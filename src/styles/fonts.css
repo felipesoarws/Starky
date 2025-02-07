@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "LufgaRegular";
+  src: local("LufgaRegular"),
+    url("../assets/fonts/LufgaRegular.ttf") format("truetype");
+}
+
+.lufga-reg {
+  font-family: "LufgaRegular";
+}
+
+@font-face {
+  font-family: "LufgaMedium";
+  src: local("LufgaMedium"),
+    url("../assets/fonts/LufgaMedium.ttf") format("truetype");
+}
+
+.lufga-med {
+  font-family: "LufgaMedium";
+}
+
+@font-face {
+  font-family: "LufgaBold";
+  src: local("LufgaBold"),
+    url("../assets/fonts/LufgaBold.ttf") format("truetype");
+}
+
+.lufga-bold {
+  font-family: "LufgaBold";
+}
