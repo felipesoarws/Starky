@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "question": "O que é React?",
+    "answer": "Uma biblioteca JavaScript para construir interfaces de usuário.",
+    "category": "Ingles",
+    "nextReviewDate": null,
+    "reviewed": false
+  },
+  {
+    "id": 2,
+    "question": "O que é HTML?",
+    "answer": "Uma linguagem de marcação usada para estruturar páginas web.",
+    "category": "HTML",
+    "nextReviewDate": null,
+    "reviewed": false
+  }
+]

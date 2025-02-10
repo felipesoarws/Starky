@@ -53,3 +53,8 @@ body {
 .btn-header:hover h2 {
   color: #ececec;
 }
+
+.errorActive {
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}

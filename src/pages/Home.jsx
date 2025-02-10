@@ -1,10 +1,17 @@
+import { useEffect } from "react";
+
 import ColorInScroll from "../components/ColorInScroll";
 
 import cards from "../assets/images/cards.png";
 import graphic from "../assets/images/graphic.png";
 import "../styles/fonts.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "starky | seu app de estudo";
+  }, []);
+
   return (
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
       <Header />
@@ -28,7 +35,7 @@ const Header = () => {
           </button>
           <button className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[#131986]">
             <h2 className="text-[#3b45f2] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
-              Entrar sem e-mail
+              <Link to={"/app"}>Entrar sem e-mail</Link>
             </h2>
           </button>
         </div>
