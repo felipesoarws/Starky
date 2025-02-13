@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../styles/index.css";
 import Modal from "../components/Modal";
 
 const Application = () => {
   const [cards, setCards] = useState([]); // todos os flashcards
   const [isModalOpen, setModalOpen] = useState(false); // conferir se o modal está aberto
-  const [showInput, setShowInput] = useState(false); // conferir se o input do select está aberto
   const [missingInput, setMissingInput] = useState(false); // conferir se faltou algum input
+  const [twoCategories, setTwoCategories] = useState(false); // conferir se duas categorias estao selecionadas
+
+  // criação de nova categoria
+  const [newCategory, setNewCategory] = useState("");
 
   // estado para armazenar os valores dos inputs
   const [formData, setFormData] = useState({
@@ -16,6 +19,8 @@ const Application = () => {
     answer: "",
     category: "",
   });
+
+  const selectRef = useRef(null);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -39,6 +44,11 @@ const Application = () => {
     ) {
       setMissingInput(false);
     }
+  };
+
+  // atualizar o estado da nova categoria digitada
+  const handleNewCategoryChange = (e) => {
+    setNewCategory(e.target.value);
   };
 
   // agrupar os cards por categoria
@@ -74,18 +84,28 @@ const Application = () => {
       answer: "",
       category: "",
     });
+
+    setNewCategory("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    if (newCategory.length > 0 && selectRef.current.value.length > 0) {
+      return setTwoCategories(true);
+    }
+
+    setTwoCategories(false);
+
+    formData.category = newCategory !== "" ? newCategory : formData.category;
 
     if (
       formData.category == "" ||
       formData.question == "" ||
-      formData.answer == ""
+      formData.answer == "" ||
+      formData.category == "-"
     ) {
-      return setMissingInput(true);
+      return setMissingInput(true); // retornar aviso de erro caso algum input esteja em branco
     }
 
     const newCard = {
@@ -104,8 +124,6 @@ const Application = () => {
     setMissingInput(false);
     cleanForm();
   };
-
-  console.log(cards);
 
   return (
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
@@ -134,28 +152,32 @@ const Application = () => {
         <div className={`modal-overlay ${isModalOpen ? "active" : ""}`}>
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <div className="relative flex items-start">
-              <h2 className="lg:text-[3vw]">Novo Card</h2>
+              <h2 className=" lg:text-[3vw]">Novo Card</h2>
             </div>
             <form
               className="flex items-start justify-center lg:gap-[2vw]"
               onSubmit={handleSubmit}
             >
-              <div className="flex flex-col lg:gap-[1vw] lg:w-[50vw]">
+              <div className="flex flex-col lg:gap-[.8vw] lg:w-[50vw]">
                 <div className="flex items-center justify-start lg:gap-[1vw]">
                   <div>
-                    <h3 className="text-[#424242] lg:text-[1.6vw]">
-                      Categoria
+                    <h3 className="text-[#424242] lg:text-[1.1vw] lg:w-[12vw]">
+                      Categorias existentes
                     </h3>
                   </div>
-                  <div className="bg-[#3b45f2] text-[#fff] lg:px-[.8vw] lg:py-[.4vw] lg:rounded-[1.3vw] lg:w-[80%]">
+                  <div className="bg-[#3b45f2] text-[#fff] lg:px-[.8vw] lg:py-[.4vw] lg:rounded-[1.3vw] lg:w-[100%] flex lg:gap-[1vw]">
                     <select
                       name="category"
                       id="category"
-                      className="border-none outline-none lg:w-[100%]"
+                      className="border-none outline-none lg:w-[100%] lg:text-[1vw]"
                       value={formData.category}
                       onChange={handleInputChange}
+                      ref={selectRef}
                     >
-                      <option value="-" className="bg-[#131986] text-[#fff]">
+                      <option
+                        value=""
+                        className="bg-[#131986] text-[#fff] lg:text-[1vw]"
+                      >
                         -
                       </option>
                       {groupedFlashcards && // verificar se o groupedFlashcards existe para houver a separacao entre categorias
@@ -164,25 +186,28 @@ const Application = () => {
                             key={category}
                             value={category}
                             name={category}
-                            className="bg-[#131986] text-[#fff]"
+                            className="bg-[#131986] text-[#fff] lg:text-[1vw]"
                           >
                             {category}
                           </option>
                         ))}
-
-                      <option
-                        value="Outro"
-                        className="bg-[#5860f0] text-[#fff]"
-                      >
-                        Outro
-                      </option>
-                      <option
-                        value="Ingles"
-                        className="bg-[#5860f0] text-[#fff]"
-                      >
-                        Ingles
-                      </option>
                     </select>
+                  </div>
+                </div>
+                <div className="flex items-center justify-start lg:gap-[1vw]">
+                  <div>
+                    <h3 className="text-[#424242] lg:text-[1.1vw] lg:w-[9vw]">
+                      Nova categoria:
+                    </h3>
+                  </div>
+                  <div className="lg:w-[100%]">
+                    <input
+                      type="text"
+                      className="bg-[#ececec] text-[#3b45f2] border-[#3b45f2] outline-none lg:border-[0.2vw] lg:px-[.8vw] lg:py-[.2vw] lg:rounded-[1.3vw] lg:w-[100%] lg:gap-[1vw]"
+                      name="category"
+                      value={newCategory}
+                      onChange={handleNewCategoryChange}
+                    />
                   </div>
                 </div>
                 <div>
@@ -191,33 +216,43 @@ const Application = () => {
                     value={formData.question}
                     onChange={handleInputChange}
                     placeholder="Escreva sua pergunta"
-                    className="resize-none w-[100%] lg:h-[30vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw]"
+                    className="resize-none w-[100%] lg:h-[30vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
                   ></textarea>
                 </div>
               </div>
-              <div className="w-[50vw] ">
+              <div className="w-[50vw] flex flex-col lg:gap-[.5vw]">
                 <div>
                   <textarea
                     name="answer"
                     value={formData.answer}
                     onChange={handleInputChange}
                     placeholder="Escreva sua resposta"
-                    className="resize-none w-[100%] lg:h-[30vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw]"
+                    className="resize-none w-[100%] lg:h-[33.2vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
                   ></textarea>
                 </div>
                 <div className="flex items-center lg:gap-[1vw]">
                   <button
                     type="submit"
-                    className="cursor-pointer bg-[#131986] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[40%] text-left"
+                    className="cursor-pointer bg-[#131986] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[40%] text-left lg:text-[1.1vw]"
                   >
                     Criar Card
                   </button>
 
-                  {missingInput && (
+                  {twoCategories && (
                     <span
                       className={`${
                         missingInput ? "errorActive" : "opacity-0"
-                      } bg-[#e90b0b] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[55%] text-left lg:text-[1.2vw] `}
+                      } bg-[#e90b0b] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[60%] text-left lg:text-[1vw]`}
+                    >
+                      Selecione somente uma categoria.
+                    </span>
+                  )}
+
+                  {!twoCategories && missingInput && (
+                    <span
+                      className={`${
+                        missingInput ? "errorActive" : "opacity-0"
+                      } bg-[#e90b0b] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[60%] text-left lg:text-[1vw]`}
                     >
                       Preencha todos os campos.
                     </span>
@@ -233,14 +268,14 @@ const Application = () => {
               category // object.keys para retornar o array com as propriedades do objeto
             ) => (
               <div key={category}>
-                <h2>{category}</h2>
+                <h2 className="lg:text-[3vw]">{category}</h2>
                 <div className="flex flex-wrap">
                   {groupedFlashcards[category].map((flashcard) => (
                     <button
                       key={flashcard.id}
-                      className="cursor-pointer lg:m-[1vw] lg:p-[1vw] lg:w-[200px] lg:rounded-[5px] lg:border-[1px] lg:border-[#fff] lg:border-solid"
+                      className="cursor-pointer lg:m-[1vw] lg:p-[1vw] lg:w-[15vw] lg:h-[15vw] lg:rounded-[.5vw] lg:border-[.1vw] lg:border-[#fff] lg:border-solid"
                     >
-                      <h3>{flashcard.question}</h3>
+                      <h3 className="lg:text-[1vw]">{flashcard.question}</h3>
                     </button>
                   ))}
                 </div>

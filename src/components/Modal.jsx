@@ -8,7 +8,7 @@ const Modal = ({ isOpen, onClose, children }) => {
       <div className="modal-overlay active">
         <div className="modal-content bg-[#ececec] lg:max-w-[75vw] lg:p-[2vw]">
           <button
-            className="lufga-reg modal-close text-[#202020] lg:top-[-2vw] lg:right-[.8vw] lg:text-[6vw]"
+            className="cursor-pointer lufga-reg modal-close text-[#5860f0] lg:top-[-1.5vw] lg:right-[1vw] lg:text-[5vw] hover:text-[#131986] "
             onClick={onClose}
           >
             ×
