@@ -34,7 +34,7 @@ const Header = () => {
             <a href="#como-funciona">Como funciona</a>
           </button>
           <button className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[#131986]">
-            <h2 className="text-[#3b45f2] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
+            <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
               <Link to={"/app"}>Entrar sem e-mail</Link>
             </h2>
           </button>
@@ -147,7 +147,7 @@ const Item = ({ number, desc }) => {
     <>
       <div className="flex items-center justify-start gap-[1.2rem] lg:gap-[1vw]">
         <div className="flex items-center justify-center bg-[#fff] min-w-[2rem] min-h-[2rem] p-[.3rem] lg:p-[.5vw] lg:w-[2.3vw] lg:h-[2.3vw]">
-          <span className="lufga-bold text-[#3b45f2] lg:text-[1.1vw]">
+          <span className="lufga-bold text-[var(--blue-light)] lg:text-[1.1vw]">
             {number}
           </span>
         </div>

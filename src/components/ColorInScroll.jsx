@@ -13,7 +13,7 @@ const ColorInScroll = ({ text }) => {
       ref={ref} // Referência para o elemento que será observado
       style={{
         backgroundColor: inView ? "#fff" : "transparent",
-        color: "#3b45f2",
+        color: "var(--blue-light)",
         transition: "background-color 0.5s ease", // Adiciona uma transição suave
       }}
     >

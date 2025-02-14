@@ -6,14 +6,14 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <CSSTransition in={isOpen} timeout={300} classNames="modal" unmountOnExit>
       <div className="modal-overlay active">
-        <div className="modal-content bg-[#ececec] lg:max-w-[75vw] lg:p-[2vw]">
+        <div className="modal-content bg-[var(--white-gray)] lg:max-w-[55vw] lg:p-[2vw] lg:rounded-[1.3vw]">
           <button
-            className="cursor-pointer lufga-reg modal-close text-[#5860f0] lg:top-[-1.5vw] lg:right-[1vw] lg:text-[5vw] hover:text-[#131986] "
+            className="z-1000  cursor-pointer transition-all ease-in-out duration-[.3s] lufga-reg modal-close text-[var(--blue-light)] lg:top-[-1.5vw] lg:right-[1vw] lg:text-[5vw] hover:text-[var(--blue-midnight)]"
             onClick={onClose}
           >
             ×
           </button>
-          <div className="text-[#202020]">{children}</div>
+          <div className="text-[var(--gray-dark)]">{children}</div>
         </div>
       </div>
     </CSSTransition>
