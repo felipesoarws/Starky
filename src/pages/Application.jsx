@@ -23,6 +23,9 @@ const Application = () => {
 
   // editar card
   const [selectedEditCard, setSelectedEditCard] = useState([]);
+  const [editedCategory, setEditedCategory] = useState("");
+  const [editedQuestion, setEditedQuestion] = useState("");
+  const [editedAnswer, setEditedAnswer] = useState("");
 
   const selectRef = useRef(null);
 
@@ -39,7 +42,7 @@ const Application = () => {
   const closeEditCardModal = () => setEditCardModalOpen(false);
 
   // atualizar o estado enquando o usuario digita nos inputs
-  const handleInputChange = (e) => {
+  const handleNewCardInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
@@ -94,7 +97,7 @@ const Application = () => {
     setNewCategory("");
   };
 
-  const handleSubmit = (e) => {
+  const handleNewCardSubmit = (e) => {
     e.preventDefault();
 
     if (newCategory.length > 0 && selectRef.current.value.length > 0) {
@@ -131,6 +134,35 @@ const Application = () => {
     cleanForm();
   };
 
+  // handleEditedCardSubmit
+  const handleEditedCardSubmit = (e) => {
+    e.preventDefault();
+
+    const updatedCard = {
+      ...selectedEditCard,
+      category: editedCategory || selectedEditCard.category,
+      question: editedQuestion || selectedEditCard.question,
+      answer: editedAnswer || selectedEditCard.question,
+    };
+
+    setCards((prevCards) => {
+      const newCards = prevCards.map((card) =>
+        card.id === updatedCard.id ? updatedCard : card
+      );
+
+      localStorage.setItem("cards", JSON.stringify(newCards));
+
+      return newCards;
+    });
+
+    closeEditCardModal();
+    setEditedCategory("");
+    setEditedQuestion("");
+    setEditedAnswer("");
+    setSelectedEditCard([]);
+  };
+
+  // editar card em especifico
   const editDeck = (flashcard) => {
     setSelectedEditCard(flashcard);
   };
@@ -169,7 +201,7 @@ const Application = () => {
             </div>
             <form
               className="flex items-start justify-center lg:gap-[2vw]"
-              onSubmit={handleSubmit}
+              onSubmit={handleNewCardSubmit}
             >
               <div className="flex flex-col lg:gap-[.8vw] lg:w-[50vw]">
                 <div className="flex items-center justify-start lg:gap-[1vw]">
@@ -184,7 +216,7 @@ const Application = () => {
                       id="category"
                       className="border-none outline-none lg:w-[100%] lg:text-[1vw]"
                       value={formData.category}
-                      onChange={handleInputChange}
+                      onChange={handleNewCardInputChange}
                       ref={selectRef}
                     >
                       <option
@@ -227,7 +259,7 @@ const Application = () => {
                   <textarea
                     name="question"
                     value={formData.question}
-                    onChange={handleInputChange}
+                    onChange={handleNewCardInputChange}
                     placeholder="Escreva sua pergunta"
                     className="resize-none w-[100%] lg:h-[30vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
                   ></textarea>
@@ -238,7 +270,7 @@ const Application = () => {
                   <textarea
                     name="answer"
                     value={formData.answer}
-                    onChange={handleInputChange}
+                    onChange={handleNewCardInputChange}
                     placeholder="Escreva sua resposta"
                     className="resize-none w-[100%] lg:h-[33.2vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
                   ></textarea>
@@ -283,14 +315,17 @@ const Application = () => {
               <div key={category}>
                 <h2 className="lg:text-[3vw]">{category}</h2>
                 <div className="flex flex-wrap">
-                  {/*   {groupedFlashcards[category].map((flashcard) => (
+                  {groupedFlashcards[category].map((flashcard) => (
                     <button
                       key={flashcard.id}
                       className="transition-all ease-in-out duration-[.3s] cursor-pointer lg:m-[1vw] lg:p-[1vw] lg:w-[15vw] lg:h-[15vw] lg:rounded-[.5vw] lg:border-[.1vw] lg:border-[#fff] lg:border-solid hover:bg-[#ececec25]"
                     >
                       <h3 className="lg:text-[1vw]">{flashcard.question}</h3>
+                      <h3 className="lg:text-[1vw] lufga-bold">
+                        {flashcard.answer}
+                      </h3>
                     </button>
-                  ))} */}
+                  ))}
                 </div>
               </div>
             )
@@ -304,10 +339,10 @@ const Application = () => {
               </div>
               <form
                 className="flex items-start justify-center lg:gap-[1vw] lg:mt-[1vw]"
-                onSubmit={handleSubmit}
+                onSubmit={handleEditedCardSubmit}
               >
                 <div className="flex lg:gap-[1.5vw] lg:w-[100%] ">
-                  <div className="bg-[var(--blue-light)] overflow-y-auto overflow-x-hidden flex flex-col items-start justify-start lg:w-[15vw] lg:h-[49vh] lg:rounded-[1.3vw] lg:text-[1vw]">
+                  <div className="bg-[var(--blue-light)] overflow-y-auto overflow-x-hidden flex flex-col items-start justify-start lg:w-[15vw] lg:h-[62vh] lg:rounded-[1.3vw] lg:text-[1vw]">
                     {Object.keys(groupedFlashcards).map(
                       (
                         category // object.keys para retornar o array com as propriedades do objeto
@@ -319,6 +354,7 @@ const Application = () => {
                           <div className="flex flex-col">
                             {groupedFlashcards[category].map((flashcard) => (
                               <button
+                                type="button"
                                 key={flashcard.id}
                                 onClick={() => editDeck(flashcard)}
                                 className="text-[var(--white-gray)] bg-[#ececec25] text-left cursor-pointer border-[var(--blue-midnight)] border-l-[.3vw] lg:w-[15vw] lg:px-[1.5vw] lg:py-[.4vw] hover:bg-[#ececec35]"
@@ -332,8 +368,42 @@ const Application = () => {
                     )}
                   </div>
                   <div className="flex flex-col lg:gap-[1vw]">
-                    <div className="bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.2vw] lg:p-[1vw] lg:w-[18vw] lg:h-[40vh] lg:rounded-[1.3vw]">
-                      {selectedEditCard.answer}
+                    <div>
+                      <h2 className="lufga-bold lg:text-[1.2vw]">Categoria</h2>
+                      <textarea
+                        name="category"
+                        value={
+                          editedCategory
+                            ? editedCategory
+                            : selectedEditCard.category
+                        }
+                        onChange={(e) => setEditedCategory(e.target.value)}
+                        className="resize-none bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.15vw] lg:p-[1vw] lg:h-[3vw] lg:w-[18vw] lg:rounded-[1.3vw] lg:text-[.9vw]"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <h2 className="lufga-bold lg:text-[1.2vw]">Pergunta</h2>
+                      <textarea
+                        name="question"
+                        value={
+                          editedQuestion
+                            ? editedQuestion
+                            : selectedEditCard.question
+                        }
+                        onChange={(e) => setEditedQuestion(e.target.value)}
+                        className="resize-none bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.15vw] lg:p-[1vw] lg:w-[18vw] lg:h-[15vh] lg:rounded-[1.3vw] lg:text-[.9vw]"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <h2 className="lufga-bold lg:text-[1.2vw]">Resposta</h2>
+                      <textarea
+                        name="answer"
+                        value={
+                          editedAnswer ? editedAnswer : selectedEditCard.answer
+                        }
+                        onChange={(e) => setEditedAnswer(e.target.value)}
+                        className="resize-none bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.15vw] lg:p-[1vw] lg:w-[18vw] lg:h-[15vh] lg:rounded-[1.3vw] lg:text-[.9vw]"
+                      ></textarea>
                     </div>
                     <button
                       type="submit"
