@@ -33,11 +33,13 @@ const Header = () => {
           <button className="cursor-pointer text-[.8rem] lg:text-[1.1vw]">
             <a href="#como-funciona">Como funciona</a>
           </button>
-          <button className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[#131986]">
-            <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
-              <Link to={"/app"}>Entrar sem e-mail</Link>
-            </h2>
-          </button>
+          <Link to={"/app"}>
+            <button className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[#131986]">
+              <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
+                Entrar sem e-mail
+              </h2>
+            </button>
+          </Link>
         </div>
       </div>
       <div className="flex items-center justify-center flex-col h-[70vh]">

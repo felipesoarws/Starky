@@ -5,13 +5,13 @@ import "../styles/index.css";
 // components
 import NewCard from "../components/NewCard";
 import EditCard from "../components/EditCard";
+import ReviewDeck from "../components/ReviewDeck";
 
 const Application = () => {
   const [cards, setCards] = useState([]); // todos os flashcards
-  const [isModalOpen, setModalOpen] = useState(false); // conferir se o modal de criar novo card está aberto
-  const [isEditCardModalOpen, setEditCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
   const [missingInput, setMissingInput] = useState(false); // conferir se faltou algum input
   const [twoCategories, setTwoCategories] = useState(false); // conferir se duas categorias estao selecionadas
+  const selectRef = useRef(null);
 
   // criação de nova categoria
   const [newCategory, setNewCategory] = useState("");
@@ -22,7 +22,7 @@ const Application = () => {
     question: "",
     answer: "",
     category: "",
-    status: "novo",
+    status: "",
   });
 
   // editar card
@@ -31,7 +31,29 @@ const Application = () => {
   const [editedQuestion, setEditedQuestion] = useState("");
   const [editedAnswer, setEditedAnswer] = useState("");
 
-  const selectRef = useRef(null);
+  // avaliar o card
+  const [difficulty, setDifficulty] = useState("");
+
+  console.log(difficulty);
+
+  const reviewOptions = [
+    {
+      option: "De Novo",
+      duration: "Agora",
+    },
+    {
+      option: "Fácil",
+      duration: "3 dias",
+    },
+    {
+      option: "Médio",
+      duration: "15min",
+    },
+    {
+      option: "Dificil",
+      duration: "5min",
+    },
+  ];
 
   useEffect(() => {
     document.title = "starky | overview";
@@ -40,10 +62,27 @@ const Application = () => {
     setCards(storedItems);
   }, []);
 
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  // modal de criar novo card
+  const [isNewCardModalOpen, setNewCardModalOpen] = useState(false); // conferir se o modal de criar novo card está aberto
+  const openNewCardModal = () => setNewCardModalOpen(true);
+  const closeNewCardModal = () => {
+    setNewCardModalOpen(false);
+    cleanForm();
+  };
+
+  // modal de editar o card
+  const [selectedDeck, setSelectedDeck] = useState([]); // deck selecionado para revisão
+  const [isEditCardModalOpen, setEditCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
   const openEditCardModal = () => setEditCardModalOpen(true);
-  const closeEditCardModal = () => setEditCardModalOpen(false);
+  const closeEditCardModal = () => {
+    setSelectedEditCard([]);
+    setEditCardModalOpen(false);
+  };
+
+  // modal de revisar o deck
+  const [isReviewCardModalOpen, setReviewCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const openReviewCardModal = () => setReviewCardModalOpen(true);
+  const closeReviewCardModal = () => setReviewCardModalOpen(false);
 
   // atualizar o estado enquando o usuario digita nos inputs
   const handleNewCardInputChange = (e) => {
@@ -126,7 +165,10 @@ const Application = () => {
       category: formData.category,
       question: formData.question,
       answer: formData.answer,
-      status: "novo",
+      status: "new",
+      creationDate: new Date().toISOString().split("T")[0],
+      /* nextReviewDate: new Date().toISOString().split("T")[0], */
+      nextReviewDate: "2025-02-28",
     };
 
     const updatedCards = [...cards, newCard];
@@ -134,12 +176,12 @@ const Application = () => {
     setCards(updatedCards);
     localStorage.setItem("cards", JSON.stringify(updatedCards));
 
-    closeModal();
+    closeNewCardModal();
     setMissingInput(false);
     cleanForm();
   };
 
-  // handleEditedCardSubmit
+  // enviar dados atualizados dos cards
   const handleEditedCardSubmit = (e) => {
     e.preventDefault();
 
@@ -176,13 +218,16 @@ const Application = () => {
   const deleteCard = (flashcard) => {
     const updatedCards = cards.filter((card) => card.id !== flashcard.id);
     setCards(updatedCards);
-    setSelectedEditCard([]);
     localStorage.setItem("cards", JSON.stringify(updatedCards));
+    setSelectedEditCard([]);
+    closeEditCardModal();
   };
 
   // revisar Deck
   const revisarDeck = (deck) => {
-    console.log(deck);
+    const selectedDeck = cards.filter((card) => card.category == deck);
+    setSelectedDeck(selectedDeck);
+    openReviewCardModal();
   };
 
   return (
@@ -201,7 +246,7 @@ const Application = () => {
             </button>
             <button
               className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[var(--blue-midnight)]"
-              onClick={openModal}
+              onClick={openNewCardModal}
             >
               <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
                 Novo Card
@@ -213,8 +258,8 @@ const Application = () => {
 
       <main className="lg:mt-[3vw]">
         <NewCard
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
+          isNewCardModalOpen={isNewCardModalOpen}
+          closeNewCardModal={closeNewCardModal}
           formData={formData}
           newCategory={newCategory}
           missingInput={missingInput}
@@ -229,17 +274,17 @@ const Application = () => {
           <h1 className="lufga-bold lg:text-[3.5vw]">Seus Decks</h1>
           <div className="flex flex-wrap">
             {Object.keys(groupedFlashcards).map((category) => {
-              const totais = groupedFlashcards[category].filter(
+              const totalCards = groupedFlashcards[category].filter(
                 (flashcard) => flashcard
               ).length;
-              const novo = groupedFlashcards[category].filter(
-                (flashcard) => flashcard.status === "novo"
+              const newCards = groupedFlashcards[category].filter(
+                (flashcard) => flashcard.status === "new"
               ).length;
-              const aprendido = groupedFlashcards[category].filter(
-                (flashcard) => flashcard.status === "aprendido"
+              const learnedCards = groupedFlashcards[category].filter(
+                (flashcard) => flashcard.status === "learned"
               ).length;
-              const revisado = groupedFlashcards[category].filter(
-                (flashcard) => flashcard.status === "revisado"
+              const revisedCards = groupedFlashcards[category].filter(
+                (flashcard) => flashcard.status === "reviewed"
               ).length;
 
               return (
@@ -253,26 +298,33 @@ const Application = () => {
                   <div className="flex items-end justify-between">
                     <div className="flex flex-col">
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        <strong className="lg:text-[1.3vw]"> {novo}</strong>{" "}
+                        <strong className="lg:text-[1.3vw]"> {newCards}</strong>{" "}
                         Cards novos
                       </p>
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        <strong className="lg:text-[1.3vw]">{aprendido}</strong>{" "}
-                        {aprendido > 1 ? "Cards aprendidos" : "Card aprendido"}
+                        <strong className="lg:text-[1.3vw]">
+                          {learnedCards}
+                        </strong>{" "}
+                        {learnedCards > 1
+                          ? "Cards aprendidos"
+                          : "Card aprendido"}
                       </p>
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        <strong className="lg:text-[1.3vw]"> {revisado}</strong>{" "}
-                        {revisado > 1
+                        <strong className="lg:text-[1.3vw]">
+                          {" "}
+                          {revisedCards}
+                        </strong>{" "}
+                        {revisedCards > 1
                           ? "Cards para revisar"
                           : "Card para revisar"}
                       </p>
                     </div>
                     <div className="flex flex-col items-end lg:leading-[2.8vw] lg:translate-y-[.7vw]">
                       <strong className="text-[var(--blue-light)] lg:text-[4vw]">
-                        {totais}
+                        {totalCards}
                       </strong>
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        {totais > 1 ? "Cards" : "Card"}
+                        {totalCards > 1 ? "Cards" : "Card"}
                       </p>
                     </div>
                   </div>
@@ -286,7 +338,13 @@ const Application = () => {
               );
             })}
           </div>
-
+          <ReviewDeck
+            selectedDeck={selectedDeck}
+            isReviewCardModalOpen={isReviewCardModalOpen}
+            closeReviewCardModal={closeReviewCardModal}
+            reviewOptions={reviewOptions}
+            setDifficulty={setDifficulty}
+          />
           <EditCard
             selectedEditCard={selectedEditCard}
             isEditCardModalOpen={isEditCardModalOpen}

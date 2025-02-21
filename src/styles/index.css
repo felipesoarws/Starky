@@ -2,6 +2,7 @@
 
 @theme {
   --blue-midnight: #131986;
+  --blue-cian: #134386;
   --blue-light: #3b45f2;
   --white-gray: #ececec;
   --gray-light: #424242;
@@ -81,4 +82,31 @@ body {
 /* button revisar card */
 .deck-item:hover > button {
   transform: translateY(0vw);
+}
+
+/* efeito para virar card */
+
+.deck-item {
+  position: relative;
+  perspective: 1000px;
+}
+
+.card-face {
+  backface-visibility: hidden;
+}
+
+.front {
+  transform: rotateY(0deg);
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.deck-item.flipped .front {
+  transform: rotateY(-180deg);
+}
+
+.deck-item.flipped .back {
+  transform: rotateY(0deg);
 }

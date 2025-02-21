@@ -2,8 +2,8 @@ import Modal from "./Modal";
 import { PlusCircle } from "@phosphor-icons/react";
 
 const NewCard = ({
-  isModalOpen,
-  closeModal,
+  isNewCardModalOpen,
+  closeNewCardModal,
   formData,
   newCategory,
   missingInput,
@@ -15,8 +15,12 @@ const NewCard = ({
   handleNewCardSubmit,
 }) => {
   return (
-    <div className={`modal-overlay ${isModalOpen ? "active" : ""}`}>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+    <div className={`modal-overlay ${isNewCardModalOpen ? "active" : ""}`}>
+      <Modal
+        isOpen={isNewCardModalOpen}
+        onClose={closeNewCardModal}
+        width={"lg:max-w-[55vw]"}
+      >
         <div className="relative flex items-start">
           <h2 className="lufga-bold lg:text-[2.5vw]">Novo Card</h2>
         </div>
@@ -86,7 +90,7 @@ const NewCard = ({
               ></textarea>
             </div>
           </div>
-          <div className="w-[50vw] flex flex-col lg:gap-[.5vw]">
+          <div className="w-[50vw] flex flex-col lg:gap-[.4vw]">
             <div>
               <textarea
                 name="answer"
@@ -96,10 +100,10 @@ const NewCard = ({
                 className="resize-none w-[100%] lg:h-[33.2vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
               ></textarea>
             </div>
-            <div className="flex items-start justify-start  lg:gap-[1vw]">
+            <div className="flex items-start justify-start  lg:gap-[.6vw]">
               <button
                 type="submit"
-                className="flex cursor-pointer bg-[var(--blue-midnight)] transition-all ease-in-out duration-[.3s] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[40%] text-left lg:text-[1.1vw] lg:gap-[.5vw] hover:bg-[var(--blue-light)]"
+                className="flex items-center cursor-pointer bg-[var(--blue-midnight)] transition-all ease-in-out duration-[.3s] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[45%] text-left lg:text-[1.1vw] lg:gap-[.5vw] hover:bg-[var(--blue-light)]"
               >
                 <PlusCircle size={32} color="#ececec" />
                 Criar Card
