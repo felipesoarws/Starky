@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import "../styles/index.css";
-import Modal from "../components/Modal";
+
+// components
+import NewCard from "../components/NewCard";
+import EditCard from "../components/EditCard";
 
 const Application = () => {
   const [cards, setCards] = useState([]); // todos os flashcards
@@ -19,6 +22,7 @@ const Application = () => {
     question: "",
     answer: "",
     category: "",
+    status: "novo",
   });
 
   // editar card
@@ -122,6 +126,7 @@ const Application = () => {
       category: formData.category,
       question: formData.question,
       answer: formData.answer,
+      status: "novo",
     };
 
     const updatedCards = [...cards, newCard];
@@ -167,6 +172,19 @@ const Application = () => {
     setSelectedEditCard(flashcard);
   };
 
+  // deletar card
+  const deleteCard = (flashcard) => {
+    const updatedCards = cards.filter((card) => card.id !== flashcard.id);
+    setCards(updatedCards);
+    setSelectedEditCard([]);
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
+  };
+
+  // revisar Deck
+  const revisarDeck = (deck) => {
+    console.log(deck);
+  };
+
   return (
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
       <div>
@@ -194,228 +212,96 @@ const Application = () => {
       </div>
 
       <main className="lg:mt-[3vw]">
-        <div className={`modal-overlay ${isModalOpen ? "active" : ""}`}>
-          <Modal isOpen={isModalOpen} onClose={closeModal}>
-            <div className="relative flex items-start">
-              <h2 className="lufga-bold lg:text-[2.5vw]">Novo Card</h2>
-            </div>
-            <form
-              className="flex items-start justify-center lg:gap-[2vw]"
-              onSubmit={handleNewCardSubmit}
-            >
-              <div className="flex flex-col lg:gap-[.8vw] lg:w-[50vw]">
-                <div className="flex items-center justify-start lg:gap-[1vw]">
-                  <div>
-                    <h3 className="text-[var(--gray-light)] lg:text-[1.1vw] lg:w-[12vw]">
-                      Categorias existentes
-                    </h3>
+        <NewCard
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          formData={formData}
+          newCategory={newCategory}
+          missingInput={missingInput}
+          twoCategories={twoCategories}
+          selectRef={selectRef}
+          groupedFlashcards={groupedFlashcards}
+          handleNewCardInputChange={handleNewCardInputChange}
+          handleNewCategoryChange={handleNewCategoryChange}
+          handleNewCardSubmit={handleNewCardSubmit}
+        />
+        <div className="flex flex-col lg:gap-[1.5vw] lg:mx-[5vw] ">
+          <h1 className="lufga-bold lg:text-[3.5vw]">Seus Decks</h1>
+          <div className="flex flex-wrap">
+            {Object.keys(groupedFlashcards).map((category) => {
+              const totais = groupedFlashcards[category].filter(
+                (flashcard) => flashcard
+              ).length;
+              const novo = groupedFlashcards[category].filter(
+                (flashcard) => flashcard.status === "novo"
+              ).length;
+              const aprendido = groupedFlashcards[category].filter(
+                (flashcard) => flashcard.status === "aprendido"
+              ).length;
+              const revisado = groupedFlashcards[category].filter(
+                (flashcard) => flashcard.status === "revisado"
+              ).length;
+
+              return (
+                <div
+                  key={category}
+                  className="deck-item bg-[var(--white-gray)] relative overflow-hidden border-[var(--blue-light)] border-[.1vw] flex flex-col justify-between border-solid transition-all ease-in-out duration-[.3s] lg:m-[1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[13vw] lg:rounded-[.5vw] hover:bg-[#ffffff85]"
+                >
+                  <h2 className="lufga-bold text-[var(--blue-light)] lg:text-[2.5vw]">
+                    {category}
+                  </h2>
+                  <div className="flex items-end justify-between">
+                    <div className="flex flex-col">
+                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
+                        <strong className="lg:text-[1.3vw]"> {novo}</strong>{" "}
+                        Cards novos
+                      </p>
+                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
+                        <strong className="lg:text-[1.3vw]">{aprendido}</strong>{" "}
+                        {aprendido > 1 ? "Cards aprendidos" : "Card aprendido"}
+                      </p>
+                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
+                        <strong className="lg:text-[1.3vw]"> {revisado}</strong>{" "}
+                        {revisado > 1
+                          ? "Cards para revisar"
+                          : "Card para revisar"}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-end lg:leading-[2.8vw] lg:translate-y-[.7vw]">
+                      <strong className="text-[var(--blue-light)] lg:text-[4vw]">
+                        {totais}
+                      </strong>
+                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
+                        {totais > 1 ? "Cards" : "Card"}
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-[var(--blue-light)] text-[#fff] lg:px-[.8vw] lg:py-[.4vw] lg:rounded-[1.3vw] lg:w-[100%] flex lg:gap-[1vw]">
-                    <select
-                      name="category"
-                      id="category"
-                      className="border-none outline-none lg:w-[100%] lg:text-[1vw]"
-                      value={formData.category}
-                      onChange={handleNewCardInputChange}
-                      ref={selectRef}
-                    >
-                      <option
-                        value=""
-                        className="bg-[var(--blue-midnight)] text-[#fff] lg:text-[1vw]"
-                      >
-                        -
-                      </option>
-                      {groupedFlashcards && // verificar se o groupedFlashcards existe para houver a separacao entre categorias
-                        Object.keys(groupedFlashcards).map((category) => (
-                          <option
-                            key={category}
-                            value={category}
-                            name={category}
-                            className="bg-[var(--blue-midnight)] text-[#fff] lg:text-[1vw]"
-                          >
-                            {category}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="flex items-center justify-start lg:gap-[1vw]">
-                  <div>
-                    <h3 className="text-[var(--gray-light)] lg:text-[1.1vw] lg:w-[9vw]">
-                      Nova categoria:
-                    </h3>
-                  </div>
-                  <div className="lg:w-[100%]">
-                    <input
-                      type="text"
-                      className="bg-[#ececec] text-[var(--blue-light)] border-[var(--blue-light)] outline-none lg:border-[0.2vw] lg:px-[.8vw] lg:py-[.2vw] lg:rounded-[1.3vw] lg:w-[100%] lg:gap-[1vw] lg:text-[1vw]"
-                      name="category"
-                      value={newCategory}
-                      onChange={handleNewCategoryChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <textarea
-                    name="question"
-                    value={formData.question}
-                    onChange={handleNewCardInputChange}
-                    placeholder="Escreva sua pergunta"
-                    className="resize-none w-[100%] lg:h-[30vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
-                  ></textarea>
-                </div>
-              </div>
-              <div className="w-[50vw] flex flex-col lg:gap-[.5vw]">
-                <div>
-                  <textarea
-                    name="answer"
-                    value={formData.answer}
-                    onChange={handleNewCardInputChange}
-                    placeholder="Escreva sua resposta"
-                    className="resize-none w-[100%] lg:h-[33.2vh] lg:p-[1vw] border-[.2vw] lg:rounded-[1.3vw] lg:text-[1vw]"
-                  ></textarea>
-                </div>
-                <div className="flex items-start justify-start  lg:gap-[1vw]">
                   <button
-                    type="submit"
-                    className="cursor-pointer bg-[var(--blue-midnight)] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[35%] text-left lg:text-[1.1vw]"
+                    className="bg-[var(--gray-dark)] transition-all ease-in-out duration-[.3s] cursor-pointer z-40 absolute bottom-[.8vw] lg:left-[.8vw] lg:right-[.8vw] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[1.1vw] hover:bg-[var(--gray-light)]"
+                    onClick={() => revisarDeck(category)}
                   >
-                    Criar Card
+                    Revisar Deck
                   </button>
-
-                  {twoCategories && (
-                    <span
-                      className={`${
-                        missingInput ? "errorActive" : "opacity-0"
-                      } bg-[#e90b0b] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[60%] text-left lg:text-[.8vw]`}
-                    >
-                      Selecione somente uma categoria.
-                    </span>
-                  )}
-
-                  {!twoCategories && missingInput && (
-                    <span
-                      className={`${
-                        missingInput ? "errorActive" : "opacity-0"
-                      } bg-[#e90b0b] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[60%] text-left lg:text-[.8vw]`}
-                    >
-                      Preencha todos os campos.
-                    </span>
-                  )}
                 </div>
-              </div>
-            </form>
-          </Modal>
-        </div>
-        <div className="flex flex-col lg:gap-[2vw]">
-          {Object.keys(groupedFlashcards).map(
-            (
-              category // object.keys para retornar o array com as propriedades do objeto
-            ) => (
-              <div key={category}>
-                <h2 className="lg:text-[3vw]">{category}</h2>
-                <div className="flex flex-wrap">
-                  {groupedFlashcards[category].map((flashcard) => (
-                    <button
-                      key={flashcard.id}
-                      className="transition-all ease-in-out duration-[.3s] cursor-pointer lg:m-[1vw] lg:p-[1vw] lg:w-[15vw] lg:h-[15vw] lg:rounded-[.5vw] lg:border-[.1vw] lg:border-[#fff] lg:border-solid hover:bg-[#ececec25]"
-                    >
-                      <h3 className="lg:text-[1vw]">{flashcard.question}</h3>
-                      <h3 className="lg:text-[1vw] lufga-bold">
-                        {flashcard.answer}
-                      </h3>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )
-          )}
-          <div
-            className={`modal-overlay ${isEditCardModalOpen ? "active" : ""}`}
-          >
-            <Modal isOpen={isEditCardModalOpen} onClose={closeEditCardModal}>
-              <div className="relative flex items-start">
-                <h2 className="lufga-bold lg:text-[2.5vw]">Editar Cards</h2>
-              </div>
-              <form
-                className="flex items-start justify-center lg:gap-[1vw] lg:mt-[1vw]"
-                onSubmit={handleEditedCardSubmit}
-              >
-                <div className="flex lg:gap-[1.5vw] lg:w-[100%] ">
-                  <div className="bg-[var(--blue-light)] overflow-y-auto overflow-x-hidden flex flex-col items-start justify-start lg:w-[15vw] lg:h-[62vh] lg:rounded-[1.3vw] lg:text-[1vw]">
-                    {Object.keys(groupedFlashcards).map(
-                      (
-                        category // object.keys para retornar o array com as propriedades do objeto
-                      ) => (
-                        <div key={category}>
-                          <h2 className="lufga-bold text-[var(--white-gray)] lg:px-[1vw] lg:py-[.4vw] lg:pt-[1vw] lg:text-[1.5vw]">
-                            {category}
-                          </h2>
-                          <div className="flex flex-col">
-                            {groupedFlashcards[category].map((flashcard) => (
-                              <button
-                                type="button"
-                                key={flashcard.id}
-                                onClick={() => editDeck(flashcard)}
-                                className="text-[var(--white-gray)] bg-[#ececec25] text-left cursor-pointer border-[var(--blue-midnight)] border-l-[.3vw] lg:w-[15vw] lg:px-[1.5vw] lg:py-[.4vw] hover:bg-[#ececec35]"
-                              >
-                                {flashcard.question}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                  <div className="flex flex-col lg:gap-[1vw]">
-                    <div>
-                      <h2 className="lufga-bold lg:text-[1.2vw]">Categoria</h2>
-                      <textarea
-                        name="category"
-                        value={
-                          editedCategory
-                            ? editedCategory
-                            : selectedEditCard.category
-                        }
-                        onChange={(e) => setEditedCategory(e.target.value)}
-                        className="resize-none bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.15vw] lg:p-[1vw] lg:h-[3vw] lg:w-[18vw] lg:rounded-[1.3vw] lg:text-[.9vw]"
-                      ></textarea>
-                    </div>
-                    <div>
-                      <h2 className="lufga-bold lg:text-[1.2vw]">Pergunta</h2>
-                      <textarea
-                        name="question"
-                        value={
-                          editedQuestion
-                            ? editedQuestion
-                            : selectedEditCard.question
-                        }
-                        onChange={(e) => setEditedQuestion(e.target.value)}
-                        className="resize-none bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.15vw] lg:p-[1vw] lg:w-[18vw] lg:h-[15vh] lg:rounded-[1.3vw] lg:text-[.9vw]"
-                      ></textarea>
-                    </div>
-                    <div>
-                      <h2 className="lufga-bold lg:text-[1.2vw]">Resposta</h2>
-                      <textarea
-                        name="answer"
-                        value={
-                          editedAnswer ? editedAnswer : selectedEditCard.answer
-                        }
-                        onChange={(e) => setEditedAnswer(e.target.value)}
-                        className="resize-none bg-[var(--white-gray)] border-[var(--gray-dark)]  border-[.15vw] lg:p-[1vw] lg:w-[18vw] lg:h-[15vh] lg:rounded-[1.3vw] lg:text-[.9vw]"
-                      ></textarea>
-                    </div>
-                    <button
-                      type="submit"
-                      className="cursor-pointer bg-[var(--blue-midnight)] text-[#fff] lg:px-[1vw] lg:py-[.7vw] lg:rounded-[1.3vw] lg:w-[100%] text-left lg:text-[1.1vw]"
-                    >
-                      Salvar Card
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </Modal>
+              );
+            })}
           </div>
+
+          <EditCard
+            selectedEditCard={selectedEditCard}
+            isEditCardModalOpen={isEditCardModalOpen}
+            closeEditCardModal={closeEditCardModal}
+            handleEditedCardSubmit={handleEditedCardSubmit}
+            groupedFlashcards={groupedFlashcards}
+            editDeck={editDeck}
+            editedCategory={editedCategory}
+            setEditedCategory={setEditedCategory}
+            editedQuestion={editedQuestion}
+            setEditedQuestion={setEditedQuestion}
+            editedAnswer={editedAnswer}
+            setEditedAnswer={setEditedAnswer}
+            deleteCard={deleteCard}
+          />
         </div>
       </main>
     </div>

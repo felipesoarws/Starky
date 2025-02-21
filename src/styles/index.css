@@ -6,6 +6,7 @@
   --white-gray: #ececec;
   --gray-light: #424242;
   --gray-dark: #202020;
+  --red-light: #dc143c;
 }
 
 * {
@@ -70,4 +71,14 @@ body {
 .errorActive {
   opacity: 1;
   transition: all 0.3s ease-in-out;
+}
+
+/* button revisar card */
+.deck-item button {
+  transform: translateY(5vw);
+}
+
+/* button revisar card */
+.deck-item:hover > button {
+  transform: translateY(0vw);
 }
