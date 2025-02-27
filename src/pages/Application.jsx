@@ -31,27 +31,22 @@ const Application = () => {
   const [editedQuestion, setEditedQuestion] = useState("");
   const [editedAnswer, setEditedAnswer] = useState("");
 
-  // avaliar o card
-  const [difficulty, setDifficulty] = useState("");
-
-  console.log(difficulty);
-
   const reviewOptions = [
     {
       option: "De Novo",
-      duration: "Agora",
-    },
-    {
-      option: "Fácil",
-      duration: "3 dias",
-    },
-    {
-      option: "Médio",
-      duration: "15min",
+      duration: "Rever agora",
     },
     {
       option: "Dificil",
-      duration: "5min",
+      duration: "Rever em 5min",
+    },
+    {
+      option: "Médio",
+      duration: "Rever em 15min",
+    },
+    {
+      option: "Fácil",
+      duration: "Rever em 3 dias",
     },
   ];
 
@@ -80,9 +75,16 @@ const Application = () => {
   };
 
   // modal de revisar o deck
+  const [showAnswer, setShowAnswer] = useState(false); // estado para mostrar se a resposta está aparecendo
   const [isReviewCardModalOpen, setReviewCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
   const openReviewCardModal = () => setReviewCardModalOpen(true);
   const closeReviewCardModal = () => setReviewCardModalOpen(false);
+
+  // modal para confirmar a opção de dificuldade
+  const [cardConfirmDifficulty, setConfirmCardDifficulty] = useState(false);
+  const [cardDifficulty, setCardDifficulty] = useState("");
+  const [isDifficultyModalOpen, setDifficultyModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const closeDifficultyModal = () => setDifficultyModalOpen(false);
 
   // atualizar o estado enquando o usuario digita nos inputs
   const handleNewCardInputChange = (e) => {
@@ -160,15 +162,33 @@ const Application = () => {
       return setMissingInput(true); // retornar aviso de erro caso algum input esteja em branco
     }
 
+    const date = new Date();
+    const dT = date.getDate();
+    const mT = date.getMonth() + 1;
+    const yT = date.getFullYear();
+    const mmT = date.getMinutes();
+    const hhT = date.getHours();
+
     const newCard = {
       id: cards.length + 1,
       category: formData.category,
       question: formData.question,
       answer: formData.answer,
       status: "new",
-      creationDate: new Date().toISOString().split("T")[0],
-      /* nextReviewDate: new Date().toISOString().split("T")[0], */
-      nextReviewDate: "2025-02-28",
+      creationDate: createCustomReviewDate()
+        .setDay(dT)
+        .setMonth(mT)
+        .setYear(yT)
+        .setHours(hhT)
+        .setMinutes(mmT)
+        .getLocalISODate(),
+      nextReviewDate: createCustomReviewDate()
+        .setDay(dT)
+        .setMonth(mT)
+        .setYear(yT)
+        .setHours(hhT)
+        .setMinutes(mmT)
+        .getLocalISODate(),
     };
 
     const updatedCards = [...cards, newCard];
@@ -179,6 +199,90 @@ const Application = () => {
     closeNewCardModal();
     setMissingInput(false);
     cleanForm();
+  };
+
+  const createCustomReviewDate = () => {
+    const currentDate = new Date();
+
+    return {
+      // ajustar os minutos
+      setMinutes: function (minutes) {
+        const newDate = new Date(currentDate); // Cria uma cópia
+        newDate.setMinutes(minutes);
+        return this._updateDate(newDate); // Atualiza a data atual
+      },
+
+      // ajustar as horas
+      setHours: function (hours) {
+        const newDate = new Date(currentDate); // Cria uma cópia
+        newDate.setHours(hours);
+        return this._updateDate(newDate); // Atualiza a data atual
+      },
+
+      // ajustar o dia
+      setDay: function (day) {
+        const newDate = new Date(currentDate); // Cria uma cópia
+        newDate.setDate(day);
+        return this._updateDate(newDate); // Atualiza a data atual
+      },
+
+      // ajustar o mês
+      setMonth: function (month) {
+        const newDate = new Date(currentDate); // Cria uma cópia
+        newDate.setMonth(month - 1); // Mês é base 0 no JavaScript
+        return this._updateDate(newDate); // Atualiza a data atual
+      },
+
+      // ajustar o ano
+      setYear: function (year) {
+        const newDate = new Date(currentDate); // Cria uma cópia
+        newDate.setFullYear(year);
+        return this._updateDate(newDate); // Atualiza a data atual
+      },
+
+      // Método interno para atualizar a data atual
+      _updateDate: function (newDate) {
+        currentDate.setTime(newDate.getTime()); // Atualiza a data atual
+        return this;
+      },
+
+      // obter a data formatada como string
+      getFormattedDate: function () {
+        // verifica se a data é válida
+        if (isNaN(currentDate.getTime())) {
+          throw new Error("Data inválida");
+        }
+
+        // Retorna a data formatada
+        return currentDate.toLocaleString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+      },
+
+      // data iso no fuso horário local
+      getLocalISODate: function () {
+        // verifica se a data é válida
+        if (isNaN(currentDate.getTime())) {
+          throw new Error("Data inválida");
+        }
+
+        // extrai os componentes da data no fuso horário local
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Mês é base 0
+        const day = String(currentDate.getDate()).padStart(2, "0");
+        const hours = String(currentDate.getHours()).padStart(2, "0");
+        const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+        const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+
+        // retorna a data no formato ISO, mas com o fuso horário local
+        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+      },
+    };
   };
 
   // enviar dados atualizados dos cards
@@ -225,9 +329,54 @@ const Application = () => {
 
   // revisar Deck
   const revisarDeck = (deck) => {
+    setShowAnswer(false);
     const selectedDeck = cards.filter((card) => card.category == deck);
+    console.log(selectedDeck);
+
+    const isThereCardToReview = selectedDeck.filter(
+      (card) => card.status === "new"
+    );
+
+    if (isThereCardToReview.length < 1) {
+      return;
+    }
+
+    // criar modal avisando que não tem cards novos para revisar hoje
+    // ...
+
     setSelectedDeck(selectedDeck);
     openReviewCardModal();
+  };
+
+  // alterar status do card depois de revisado
+  const changeCardDetails = (reviewedCard, difficulty) => {
+    const newCard = {
+      id: reviewedCard.id,
+      category: reviewedCard.category,
+      question: reviewedCard.question,
+      answer: reviewedCard.answer,
+      status: "learned",
+      creationDate: reviewedCard.creationDate,
+      nextReviewDate: changeNextReviewDate(
+        reviewedCard.nextReviewDate,
+        difficulty
+      ),
+    };
+
+    setCards((prevCards) => {
+      const newCards = prevCards.map((card) =>
+        card.id === newCard.id ? newCard : card
+      );
+
+      localStorage.setItem("cards", JSON.stringify(newCards));
+
+      return newCards;
+    });
+  };
+
+  const changeNextReviewDate = (oldReviewDate, difficulty) => {
+    console.log(oldReviewDate);
+    return oldReviewDate;
   };
 
   return (
@@ -283,8 +432,9 @@ const Application = () => {
               const learnedCards = groupedFlashcards[category].filter(
                 (flashcard) => flashcard.status === "learned"
               ).length;
-              const revisedCards = groupedFlashcards[category].filter(
-                (flashcard) => flashcard.status === "reviewed"
+              const cardsToReview = groupedFlashcards[category].filter(
+                (flashcard) =>
+                  flashcard.status === "new" || flashcard.status === "toReview"
               ).length;
 
               return (
@@ -299,22 +449,20 @@ const Application = () => {
                     <div className="flex flex-col">
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
                         <strong className="lg:text-[1.3vw]"> {newCards}</strong>{" "}
-                        Cards novos
+                        {newCards > 1 ? "Cards novos" : "Card novo"}
                       </p>
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
                         <strong className="lg:text-[1.3vw]">
                           {learnedCards}
                         </strong>{" "}
-                        {learnedCards > 1
-                          ? "Cards aprendidos"
-                          : "Card aprendido"}
+                        {learnedCards > 1 ? "Cards revisados" : "Card revisado"}
                       </p>
                       <p className="text-[var(--blue-light)] lg:text-[1vw]">
                         <strong className="lg:text-[1.3vw]">
                           {" "}
-                          {revisedCards}
+                          {cardsToReview}
                         </strong>{" "}
-                        {revisedCards > 1
+                        {cardsToReview > 1
                           ? "Cards para revisar"
                           : "Card para revisar"}
                       </p>
@@ -341,9 +489,18 @@ const Application = () => {
           <ReviewDeck
             selectedDeck={selectedDeck}
             isReviewCardModalOpen={isReviewCardModalOpen}
+            isDifficultyModalOpen={isDifficultyModalOpen}
             closeReviewCardModal={closeReviewCardModal}
+            closeDifficultyModal={closeDifficultyModal}
             reviewOptions={reviewOptions}
-            setDifficulty={setDifficulty}
+            setDifficultyModalOpen={setDifficultyModalOpen}
+            setCardDifficulty={setCardDifficulty}
+            cardDifficulty={cardDifficulty}
+            setConfirmCardDifficulty={setConfirmCardDifficulty}
+            cardConfirmDifficulty={cardConfirmDifficulty}
+            changeCardDetails={changeCardDetails}
+            setShowAnswer={setShowAnswer}
+            showAnswer={showAnswer}
           />
           <EditCard
             selectedEditCard={selectedEditCard}
