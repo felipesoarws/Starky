@@ -344,6 +344,8 @@ const Application = () => {
       category: editedCategory || selectedEditCard.category,
       question: editedQuestion || selectedEditCard.question,
       answer: editedAnswer || selectedEditCard.question,
+      nextReviewDate: getLocalDate(),
+      status: "new",
     };
 
     setCards((prevCards) => {
@@ -604,7 +606,19 @@ const Application = () => {
           handleNewCardSubmit={handleNewCardSubmit}
         />
         <div className="flex flex-col gap-4 lg:gap-[1.5vw] lg:mx-[5vw] ">
-          <h1 className="lufga-bold text-4xl lg:text-[3.5vw]">Seus Decks</h1>
+          <h1 className="lufga-bold text-center text-4xl lg:text-[3.5vw]">
+            Seus Decks
+          </h1>
+          {cards.length < 1 && (
+            <div className="text-center lg:leading-[2vw]">
+              <h1 className="lufga-bold text-2xl lg:text-[3vw]">
+                Você não tem nenhum deck.
+              </h1>
+              <h1 className="lufga-med text-[1.3rem] lg:text-[2vw]">
+                Crie seus próprios cards ou importe os seus favoritos.
+              </h1>
+            </div>
+          )}
           <div className="flex flex-wrap">
             {Object.keys(groupedFlashcards).map((category) => {
               const totalCards = groupedFlashcards[category].filter(

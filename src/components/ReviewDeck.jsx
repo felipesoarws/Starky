@@ -92,7 +92,7 @@ const ReviewDeck = ({
                   <>card para revisar</>
                 )}
               </h1>
-              <div className="flex flex-col items-start justify-between gap-5 mt-4 lg:mt-[1vw] lg:flex-row lg:gap-[2vw]">
+              <div className="flex flex-col items-start justify-between gap-5 mt-4 lg:mt-[1vw] lg:flex-row lg:gap-[.5vw]">
                 <div className="flex flex-col gap-2 lg:gap-[1vw]">
                   {showAnswer ? (
                     <div
@@ -162,10 +162,10 @@ const ReviewDeck = ({
                     </button>
                   )}
                 </div>
-                <div className="flex flex-col items-start justify-start gap-2 lg:gap-[1vw] lg:h-[15vh]">
+                <div className="flex flex-col items-start justify-start gap-2 lg:gap-[1vw] lg:h-[15vh] lg:-translate-x-[1vw]">
                   {showAnswer ? (
                     <>
-                      <h1 className="lufga-bold text-2xl lg:text-[2vw]">
+                      <h1 className="lufga-bold text-2xl lg:text-[1.8vw]">
                         Qual foi a dificuldade?
                       </h1>
                       <div className="flex flex-col items-start gap-2 lg:gap-[1vw]">
