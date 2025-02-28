@@ -76,7 +76,13 @@ body {
 
 /* button revisar card */
 .deck-item button {
-  transform: translateY(5vw);
+  transform: translateY(0rem);
+}
+
+@media screen and (min-width: 1024px) {
+  .deck-item button {
+    transform: translateY(5vw);
+  }
 }
 
 /* button revisar card */

@@ -11,6 +11,19 @@ const Application = () => {
   const [cards, setCards] = useState([]); // todos os flashcards
   const [missingInput, setMissingInput] = useState(false); // conferir se faltou algum input
   const [twoCategories, setTwoCategories] = useState(false); // conferir se duas categorias estao selecionadas
+  const [isCardsToReview, setIsCardsToReview] = useState(true); // conferir se não tem nenhum card para revisar hoje
+  const [shouldAnimate, setShouldAnimate] = useState(false); // aparecer efeito de notificação do deck
+
+  useEffect(() => {
+    if (!isCardsToReview) {
+      // Define um timeout para adicionar a classe após 2 segundos (2000ms)
+      const timeoutId = setTimeout(() => {
+        setShouldAnimate(true);
+      }, 200);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isCardsToReview]);
   const selectRef = useRef(null);
 
   // criação de nova categoria
@@ -374,13 +387,12 @@ const Application = () => {
     );
 
     if (isThereCardToReview.length < 1) {
-      return;
+      return setIsCardsToReview(false);
     }
 
-    // criar modal avisando que não tem cards novos para revisar hoje
-    // ...
-
+    setIsCardsToReview(true);
     setSelectedDeck(selectedDeck);
+    setShouldAnimate(false);
     openReviewCardModal();
   };
 
@@ -577,7 +589,7 @@ const Application = () => {
         </div>
       </div>
 
-      <main className="lg:mt-[3vw]">
+      <main className="mt-6 lg:mt-[3vw]">
         <NewCard
           isNewCardModalOpen={isNewCardModalOpen}
           closeNewCardModal={closeNewCardModal}
@@ -591,8 +603,8 @@ const Application = () => {
           handleNewCategoryChange={handleNewCategoryChange}
           handleNewCardSubmit={handleNewCardSubmit}
         />
-        <div className="flex flex-col lg:gap-[1.5vw] lg:mx-[5vw] ">
-          <h1 className="lufga-bold lg:text-[3.5vw]">Seus Decks</h1>
+        <div className="flex flex-col gap-4 lg:gap-[1.5vw] lg:mx-[5vw] ">
+          <h1 className="lufga-bold text-4xl lg:text-[3.5vw]">Seus Decks</h1>
           <div className="flex flex-wrap">
             {Object.keys(groupedFlashcards).map((category) => {
               const totalCards = groupedFlashcards[category].filter(
@@ -612,25 +624,28 @@ const Application = () => {
               return (
                 <div
                   key={category}
-                  className="deck-item bg-[var(--white-gray)] relative overflow-hidden border-[var(--blue-light)] border-[.1vw] flex flex-col justify-between border-solid transition-all ease-in-out duration-[.3s] lg:m-[1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[13vw] lg:rounded-[.5vw] hover:bg-[#ffffff85]"
+                  className="deck-item bg-[var(--white-gray)] relative overflow-hidden border-[var(--blue-light)] border-2 m-2 p-4 w-[20rem] h-[10rem] rounded-2xl flex flex-col justify-between border-solid transition-all ease-in-out duration-[.3s] lg:m-[1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[13vw] lg:border-[.1vw]  lg:rounded-[.5vw] hover:bg-[#ffffff85]"
                 >
-                  <h2 className="lufga-bold text-[var(--blue-light)] lg:text-[2.5vw]">
+                  <h2 className="lufga-bold text-[var(--blue-light)] text-3xl lg:text-[2.5vw]">
                     {category}
                   </h2>
                   <div className="flex items-end justify-between">
                     <div className="flex flex-col">
-                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        <strong className="lg:text-[1.3vw]"> {newCards}</strong>{" "}
+                      <p className="text-[var(--blue-light)] text-[.9rem] lg:text-[1vw]">
+                        <strong className="text-[1rem] lg:text-[1.3vw]">
+                          {" "}
+                          {newCards}
+                        </strong>{" "}
                         {newCards > 1 ? "Cards novos" : "Card novo"}
                       </p>
-                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        <strong className="lg:text-[1.3vw]">
+                      <p className="text-[var(--blue-light)] text-[.9rem] lg:text-[1vw]">
+                        <strong className="text-[1rem] lg:text-[1.3vw]">
                           {learnedCards}
                         </strong>{" "}
                         {learnedCards > 1 ? "Cards revisados" : "Card revisado"}
                       </p>
-                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
-                        <strong className="lg:text-[1.3vw]">
+                      <p className="text-[var(--blue-light)] text-[.9rem] lg:text-[1vw]">
+                        <strong className="text-[1rem] lg:text-[1.3vw]">
                           {" "}
                           {cardsToReview}
                         </strong>{" "}
@@ -640,16 +655,16 @@ const Application = () => {
                       </p>
                     </div>
                     <div className="flex flex-col items-end lg:leading-[2.8vw] lg:translate-y-[.7vw]">
-                      <strong className="text-[var(--blue-light)] lg:text-[4vw]">
+                      <strong className="text-[var(--blue-light)] text-5xl lg:text-[4vw]">
                         {totalCards}
                       </strong>
-                      <p className="text-[var(--blue-light)] lg:text-[1vw]">
+                      <p className="text-[var(--blue-light)] text-[.9rem] lg:text-[1vw]">
                         {totalCards > 1 ? "Cards" : "Card"}
                       </p>
                     </div>
                   </div>
                   <button
-                    className="bg-[var(--gray-dark)] transition-all ease-in-out duration-[.3s] cursor-pointer z-40 absolute bottom-[.8vw] lg:left-[.8vw] lg:right-[.8vw] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[1.1vw] hover:bg-[var(--gray-light)]"
+                    className="bg-[var(--gray-dark)] transition-all ease-in-out duration-[.3s] cursor-pointer z-40 absolute top-[.8vw] right-[.8vw] p-[.3rem] px-[.8rem]  rounded-[.8rem] text-[1rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[1.1vw] lg:left-[.8vw] lg:bottom-[.8vw] lg:top-auto hover:bg-[var(--gray-light)]"
                     onClick={() => revisarDeck(category)}
                   >
                     Revisar Deck
@@ -657,6 +672,36 @@ const Application = () => {
                 </div>
               );
             })}
+
+            {!isCardsToReview && (
+              <div
+                className={`select-none  bg-[var(--white-gray)] absolute right-[1rem] bottom-0 left-[1rem] border-[var(--blue-midnight)] border-[.1vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.4s] m-[1rem] p-[1rem] h-[4rem] rounded-[.5rem] gap-[.8rem] lg:m-[1vw] lg:p-[1vw] lg:h-[4vw] lg:rounded-[.5vw] lg:gap-[.8vw] lg:bottom-0 lg:left-0 lg:right-auto ${
+                  shouldAnimate
+                    ? "translate-y-0vw"
+                    : "translate-y-[6rem] lg:translate-y-[6vw]"
+                } `}
+              >
+                <div className="flex flex-col items-start justify-center">
+                  <p className="lufga-bold text-[var(--gray-dark)] text-[.9rem] lg:text-[.9vw]">
+                    Não foi possível revisar o deck
+                  </p>
+                  <p className="text-[var(--gray-dark)] text-[.8rem] lg:text-[.8vw]">
+                    Você não tem cards para revisar hoje
+                  </p>
+                </div>
+                <div>
+                  <button
+                    className="bg-[var(--blue-midnight)] transition-all ease-in-out duration-[.3s] cursor-pointer p-[.4rem] rounded-[.5rem] text-[1rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[.8vw] hover:bg-[var(--blue-light)]"
+                    onClick={() => {
+                      setShouldAnimate(false);
+                      setIsCardsToReview(true);
+                    }}
+                  >
+                    Ok
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
           <ReviewDeck
             selectedDeck={selectedDeck}
