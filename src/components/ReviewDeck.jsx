@@ -16,6 +16,7 @@ const ReviewDeck = ({
   changeCardDetails,
   setShowAnswer,
   showAnswer,
+  getLocalDate,
 }) => {
   const day = new Date().getDate();
   const month = new Date().getMonth() + 1;
@@ -26,26 +27,8 @@ const ReviewDeck = ({
 
   useEffect(() => {}, []);
 
-  // filtrar cards com status 'new' ou 'toReview'
-  const filteredStatusCards = selectedDeck.filter(
-    (card) => card.status === "new" || card.status === "toReview"
-  );
-
-  // data de hoje
-  const getLocalDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-  };
-
   // filtrar cards com status de revisão para hoje
-  const cardsToReviewToday = filteredStatusCards.filter((card) => {
+  const cardsToReviewToday = selectedDeck.filter((card) => {
     const today = getLocalDate();
 
     return card.nextReviewDate <= today;
@@ -77,6 +60,7 @@ const ReviewDeck = ({
     if (cardConfirmDifficulty) {
       changeCardDetails(mostRecentCard, cardDifficulty);
       closeDifficultyModal();
+      closeReviewCardModal();
       setShowAnswer(false);
       setConfirmCardDifficulty(false);
     }

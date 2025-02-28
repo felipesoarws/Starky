@@ -57,6 +57,43 @@ const Application = () => {
     setCards(storedItems);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkStatusCard();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [cards]);
+
+  const checkStatusCard = () => {
+    const today = getLocalDate();
+
+    const updatedCards = cards.map((card) => {
+      if (card.status === "learned" && card.nextReviewDate <= today) {
+        return { ...card, status: "toReview" };
+      }
+      return card;
+    });
+
+    if (JSON.stringify(updatedCards) !== JSON.stringify(cards)) {
+      setCards(updatedCards);
+      localStorage.setItem("cards", JSON.stringify(updatedCards));
+    }
+  };
+
+  // data de hoje
+  const getLocalDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  };
+
   // modal de criar novo card
   const [isNewCardModalOpen, setNewCardModalOpen] = useState(false); // conferir se o modal de criar novo card está aberto
   const openNewCardModal = () => setNewCardModalOpen(true);
@@ -331,10 +368,9 @@ const Application = () => {
   const revisarDeck = (deck) => {
     setShowAnswer(false);
     const selectedDeck = cards.filter((card) => card.category == deck);
-    console.log(selectedDeck);
 
     const isThereCardToReview = selectedDeck.filter(
-      (card) => card.status === "new"
+      (card) => card.status === "new" || card.status === "toReview"
     );
 
     if (isThereCardToReview.length < 1) {
@@ -357,10 +393,7 @@ const Application = () => {
       answer: reviewedCard.answer,
       status: "learned",
       creationDate: reviewedCard.creationDate,
-      nextReviewDate: changeNextReviewDate(
-        reviewedCard.nextReviewDate,
-        difficulty
-      ),
+      nextReviewDate: changeNextReviewDate(difficulty),
     };
 
     setCards((prevCards) => {
@@ -374,9 +407,148 @@ const Application = () => {
     });
   };
 
-  const changeNextReviewDate = (oldReviewDate, difficulty) => {
-    console.log(oldReviewDate);
-    return oldReviewDate;
+  // alterar data de revisao depois de confirmar dificuldade
+  const changeNextReviewDate = (difficulty) => {
+    const dateObj = new Date();
+
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const seconds = dateObj.getSeconds();
+
+    if (difficulty === "De Novo") {
+      const newYear = year;
+      const newMonth = month === 12 ? 1 : month;
+      const newDay = day;
+      const newHours = hours;
+      const newMinutes = minutes + 1;
+      const newSeconds = seconds;
+
+      const newDateObj = new Date(
+        newYear,
+        newMonth - 1,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      const NewReviewDate = changeDateFormat(
+        newDateObj,
+        newYear,
+        newMonth,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      return NewReviewDate;
+    }
+
+    if (difficulty === "Dificil") {
+      const newYear = year;
+      const newMonth = month === 12 ? 1 : month;
+      const newDay = day;
+      const newHours = hours;
+      const newMinutes = minutes + 5;
+      const newSeconds = seconds;
+
+      const newDateObj = new Date(
+        newYear,
+        newMonth - 1,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      const NewReviewDate = changeDateFormat(
+        newDateObj,
+        newYear,
+        newMonth,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      return NewReviewDate;
+    }
+
+    if (difficulty === "Médio") {
+      const newYear = year;
+      const newMonth = month === 12 ? 1 : month;
+      const newDay = day;
+      const newHours = hours;
+      const newMinutes = minutes + 15;
+      const newSeconds = seconds;
+
+      const newDateObj = new Date(
+        newYear,
+        newMonth - 1,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      const NewReviewDate = changeDateFormat(
+        newDateObj,
+        newYear,
+        newMonth,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      return NewReviewDate;
+    }
+
+    if (difficulty === "Fácil") {
+      const newYear = year;
+      const newMonth = month === 12 ? 1 : month;
+      const newDay = day + 3;
+      const newHours = hours;
+      const newMinutes = minutes;
+      const newSeconds = seconds;
+
+      const newDateObj = new Date(
+        newYear,
+        newMonth - 1,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      const NewReviewDate = changeDateFormat(
+        newDateObj,
+        newYear,
+        newMonth,
+        newDay,
+        newHours,
+        newMinutes,
+        newSeconds
+      );
+
+      return NewReviewDate;
+    }
+  };
+
+  // formatar dados de data para padrao 2025-00-00T00:00:00
+  const changeDateFormat = (date, y, m, d, hh, mm, ss) => {
+    y = date.getFullYear();
+    m = String(date.getMonth() + 1).padStart(2, "0");
+    d = String(date.getDate()).padStart(2, "0");
+    hh = String(date.getHours()).padStart(2, "0");
+    mm = String(date.getMinutes()).padStart(2, "0");
+    ss = String(date.getSeconds()).padStart(2, "0");
+
+    return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
   };
 
   return (
@@ -501,6 +673,7 @@ const Application = () => {
             changeCardDetails={changeCardDetails}
             setShowAnswer={setShowAnswer}
             showAnswer={showAnswer}
+            getLocalDate={getLocalDate}
           />
           <EditCard
             selectedEditCard={selectedEditCard}
