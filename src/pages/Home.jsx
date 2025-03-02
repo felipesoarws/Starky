@@ -1,11 +1,12 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/fonts.css";
 
 import ColorInScroll from "../components/ColorInScroll";
 
 import cards from "../assets/images/cards.png";
 import graphic from "../assets/images/graphic.png";
-import "../styles/fonts.css";
-import { Link } from "react-router-dom";
+import celphones from "../assets/images/celphones.png";
 
 const Home = () => {
   useEffect(() => {
@@ -42,7 +43,7 @@ const Header = () => {
           </Link>
         </div>
       </div>
-      <div className="flex items-center justify-center flex-col h-[70vh]">
+      <div className="flex items-center justify-center flex-col h-[55vh] lg:h-[70vh]">
         <h2 className="lufga-bold relative select-none text-[4rem] lg:text-[9vw] ">
           starky.
           <p className="lufga-med absolute text-[.9rem] bottom-[.4rem] lg:bottom-[1.4vw]  lg:left-[.5vw] lg:text-[1.3vw]">
@@ -102,6 +103,20 @@ const Main = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="relative hidden items-center justify-center lg:flex lg:min-h-screen">
+        <div className="absolute left-0 top-0">
+          <h2 className="uppercase lufga-bold text-[4.5vw] leading-[4vw]">
+            <span className="block">Transforme sua</span>
+            <span className="block">maneira de</span>
+            <span className="block">estudar</span>
+          </h2>
+        </div>
+        <img
+          src={celphones}
+          alt="celphones"
+          className="select-none pointer-events-auto lg:w-[80vw] lg:translate-y-[-1vw]"
+        />
       </div>
       <div className="lg:min-h-screen">
         <h2 className="lufga-bold text-[1.5rem] mt-8 lg:text-[1.5vw]">

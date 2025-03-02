@@ -8,7 +8,7 @@ const ColorInScroll = ({ text }) => {
   });
 
   return (
-    <p
+    <span
       className="inline"
       ref={ref} // Referência para o elemento que será observado
       style={{
@@ -18,7 +18,7 @@ const ColorInScroll = ({ text }) => {
       }}
     >
       {text}
-    </p>
+    </span>
   );
 };
 

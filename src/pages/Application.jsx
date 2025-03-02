@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import "../styles/index.css";
 
 // components
@@ -16,7 +16,6 @@ const Application = () => {
 
   useEffect(() => {
     if (!isCardsToReview) {
-      // Define um timeout para adicionar a classe após 2 segundos (2000ms)
       const timeoutId = setTimeout(() => {
         setShouldAnimate(true);
       }, 200);
@@ -572,9 +571,13 @@ const Application = () => {
           <h2 className="lufga-bold lg:text-[1.4vw]">
             <Link to={"/"}>starky.</Link>
           </h2>
-          <div className="flex justify-between gap-[1rem] items-center lg:gap-[2.5vw]">
+          <div className="flex justify-between gap-[.8rem] items-center lg:gap-[2.5vw]">
+            <button className="cursor-pointer text-[.7rem] lg:text-[1.1vw]">
+              Exportar Decks
+            </button>
+
             <button
-              className="cursor-pointer text-[.8rem] lg:text-[1.1vw]"
+              className="cursor-pointer text-[.7rem] lg:text-[1.1vw]"
               onClick={openEditCardModal}
             >
               Editar Cards
@@ -583,7 +586,7 @@ const Application = () => {
               className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[var(--blue-midnight)]"
               onClick={openNewCardModal}
             >
-              <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.8rem] lg:text-[1.1vw]">
+              <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.7rem] lg:text-[1.1vw]">
                 Novo Card
               </h2>
             </button>
@@ -640,7 +643,7 @@ const Application = () => {
                   key={category}
                   className="deck-item bg-[var(--white-gray)] relative overflow-hidden border-[var(--blue-light)] border-2 m-2 p-4 w-[20rem] h-[10rem] rounded-2xl flex flex-col justify-between border-solid transition-all ease-in-out duration-[.3s] lg:m-[1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[13vw] lg:border-[.1vw]  lg:rounded-[.5vw] hover:bg-[#ffffff85]"
                 >
-                  <h2 className="lufga-bold text-[var(--blue-light)] text-3xl lg:text-[2.5vw]">
+                  <h2 className="lufga-bold text-[var(--blue-light)] text-2xl lg:text-[2.5vw]">
                     {category}
                   </h2>
                   <div className="flex items-end justify-between">
@@ -678,7 +681,7 @@ const Application = () => {
                     </div>
                   </div>
                   <button
-                    className="bg-[var(--gray-dark)] transition-all ease-in-out duration-[.3s] cursor-pointer z-40 absolute top-[.8vw] right-[.8vw] p-[.3rem] px-[.8rem]  rounded-[.8rem] text-[1rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[1.1vw] lg:left-[.8vw] lg:bottom-[.8vw] lg:top-auto hover:bg-[var(--gray-light)]"
+                    className="bg-[var(--gray-dark)] transition-all ease-in-out duration-[.3s] cursor-pointer z-40 absolute top-[.8vw] right-[.8vw] p-[.3rem] px-[.8rem]  rounded-[.8rem] text-[.9rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[1.1vw] lg:left-[.8vw] lg:bottom-[.8vw] lg:top-auto hover:bg-[var(--gray-light)]"
                     onClick={() => revisarDeck(category)}
                   >
                     Revisar Deck
