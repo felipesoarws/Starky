@@ -19,6 +19,7 @@ const Home = () => {
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
       <Header />
       <Main />
+      <Footer />
     </div>
   );
 };
@@ -144,7 +145,80 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <footer className="relative hidden items-center justify-center mt-[5vw] lg:flex">
+    </div>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="relative mt-10 lg:mt-[5vw] lg:mx-[3vw]">
+      <div className="items-center justify-center flex flex-col lg:hidden">
+        <div className="text-center">
+          <h2 className="uppercase lufga-bold text-[2.5rem] leading-[2.3rem] ">
+            <span className="block">Transforme</span>
+            <span className="block">sua maneira</span>
+            <span className="block">de estudar!</span>
+          </h2>
+          <div className="mt-[2rem]">
+            <p className="text-[1.2rem]">
+              Acesse os links abaixo para acessar o programa e/ou também para
+              conhecer mais o criador desse site! :)
+            </p>
+            <div className="my-[2rem]">
+              <nav className="footer-links">
+                <ul className="flex flex-col gap-[.5rem] items-center justify-center">
+                  <li>
+                    <Link to={"/app"}>
+                      <button className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[1.2rem] px-[1.5rem] py-[.6rem] hover:bg-[#131986]">
+                        <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[1.5rem]">
+                          Acessar o programa
+                        </h2>
+                      </button>
+                    </Link>
+                  </li>
+                  <li className="mt-[2rem] transition-all duration-[.3s] w-fit ease-in-out text-[var(--white-gray)] hover:text-[var(--blue-midnight)] ">
+                    <a
+                      href="https://www.linkedin.com/in/felipesoarws/"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex items-center justify-start gap-[.6rem]"
+                    >
+                      <LinkedinLogo size={40} color="#ececec" weight="fill" />
+                      <span className="text-[1.3rem] ">Felipe Soares</span>
+                    </a>
+                  </li>
+                  <li className="mt-[.7rem] transition-all duration-[.3s] w-fit ease-in-out text-[var(--white-gray)] hover:text-[var(--blue-midnight)] ">
+                    <a
+                      href="https://github.com/felipesoarws/"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex items-center justify-start gap-[.6rem]"
+                    >
+                      <GithubLogo size={40} color="#ececec" weight="fill" />
+                      <span className="text-[1.3rem] ">@felipesoarws</span>
+                    </a>
+                  </li>
+                  <li className="mt-[.7rem] transition-all duration-[.3s] w-fit ease-in-out text-[var(--white-gray)] hover:text-[var(--blue-midnight)] ">
+                    <a
+                      href="https://www.instagram.com/felipesoarws/"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex items-center justify-start gap-[.6rem]"
+                    >
+                      <InstagramLogo size={40} color="#ececec" weight="fill" />
+                      <span className="text-[1.3rem] ">@felipesoarws</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <span className="block mt-[4rem] text-[#ffffff]">
+                © 2025 felipesoarws
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="hidden items-center justify-center lg:flex">
         <img
           src={celphones}
           alt="celphones"
@@ -214,8 +288,8 @@ const Main = () => {
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 };
 
