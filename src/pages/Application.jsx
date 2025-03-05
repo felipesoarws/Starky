@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/index.css";
 
 // components
+import MobileMenu from "../components/MobileMenu";
 import NewCard from "../components/NewCard";
 import EditCard from "../components/EditCard";
 import ReviewDeck from "../components/ReviewDeck";
@@ -13,6 +14,7 @@ const Application = () => {
   const [twoCategories, setTwoCategories] = useState(false); // conferir se duas categorias estao selecionadas
   const [isCardsToReview, setIsCardsToReview] = useState(true); // conferir se não tem nenhum card para revisar hoje
   const [shouldAnimate, setShouldAnimate] = useState(false); // aparecer efeito de notificação do deck
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // conferir se o menu mobile está aberto
 
   useEffect(() => {
     if (!isCardsToReview) {
@@ -572,12 +574,12 @@ const Application = () => {
             <Link to={"/"}>starky.</Link>
           </h2>
           <div className="flex justify-between gap-[.8rem] items-center lg:gap-[2.5vw]">
-            <button className="cursor-pointer text-[.7rem] lg:text-[1.1vw]">
+            <button className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block">
               Exportar Decks
             </button>
 
             <button
-              className="cursor-pointer text-[.7rem] lg:text-[1.1vw]"
+              className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
               onClick={openEditCardModal}
             >
               Editar Cards
@@ -586,10 +588,15 @@ const Application = () => {
               className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[var(--blue-midnight)]"
               onClick={openNewCardModal}
             >
-              <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.7rem] lg:text-[1.1vw]">
+              <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.9rem] lg:text-[1.1vw]">
                 Novo Card
               </h2>
             </button>
+            <MobileMenu
+              isMobileMenuOpen={isMobileMenuOpen}
+              setIsMobileMenuOpen={setIsMobileMenuOpen}
+              openEditCardModal={openEditCardModal}
+            />
           </div>
         </div>
       </div>

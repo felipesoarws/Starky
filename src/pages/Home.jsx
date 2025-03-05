@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/fonts.css";
 
+import { GithubLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react";
+
 import ColorInScroll from "../components/ColorInScroll";
 
 import cards from "../assets/images/cards.png";
@@ -63,18 +65,18 @@ const Header = () => {
 
 const Main = () => {
   return (
-    <div className="flex flex-col gap-[2rem] lg:gap-[1vw]">
+    <div className="flex flex-col gap-[2rem] lg:gap-[1vw] lg:mx-[3vw]">
       <div className="lg:min-h-screen" id="como-funciona">
         <div>
           <h2 className="lufga-bold text-[1.5rem] lg:text-[1.5vw]">
             Como funciona o Starky?
           </h2>
         </div>
-        <div className="flex items-top justify-between flex-col gap-[3rem] lg:flex-row">
+        <div className="flex items-top justify-between flex-col gap-[3rem] lg:flex-row lg:gap-[2vw]">
           <div className="flex flex-col gap-[1rem] mt-2 lg:gap-[1.3vw] lg:mt-[1vw] ">
-            <h2 className="text-[1.2rem] mb-2 leading-6 lg:text-[4vw] lg:w-[46vw] lg:mb-[2vw] lg:leading-[3.2vw] select-none">
+            <h2 className="text-[1.2rem] mb-2 leading-6 lg:text-[3.5vw] lg:w-[46vw] lg:mb-[2vw] lg:leading-[3.2vw] select-none">
               Revise constantemente o que você não sabe{" "}
-              <span className="lufga-bold text-[#fff]">ainda!</span>
+              <span className="lufga-bold block text-[#fff]">ainda!</span>
             </h2>
             <Item
               number={"1"}
@@ -99,32 +101,19 @@ const Main = () => {
             <img
               src={cards}
               alt="cards"
-              className="pointer-events-none lg:w-[38vw]"
+              className="pointer-events-none lg:w-[35vw]"
             />
           </div>
         </div>
       </div>
-      <div className="relative hidden items-center justify-center lg:flex lg:min-h-screen">
-        <div className="absolute left-0 top-0">
-          <h2 className="uppercase lufga-bold text-[4.5vw] leading-[4vw]">
-            <span className="block">Transforme sua</span>
-            <span className="block">maneira de</span>
-            <span className="block">estudar</span>
-          </h2>
-        </div>
-        <img
-          src={celphones}
-          alt="celphones"
-          className="select-none pointer-events-auto lg:w-[80vw] lg:translate-y-[-1vw]"
-        />
-      </div>
-      <div className="lg:min-h-screen">
+
+      <div>
         <h2 className="lufga-bold text-[1.5rem] mt-8 lg:text-[1.5vw]">
           Por que funciona?
         </h2>
         <div className="flex items-top flex-col justify-between gap-[3rem] lg:flex-row lg:gap-[4.5vw]">
           <div className="flex flex-col gap-[1rem] mt-4 lg:gap-[2vw] lg:mt-[2vw] lg:w-[40vw]">
-            <p className="lufga-reg lg:text-[1.4vw]">
+            <p className="lufga-reg lg:text-[1.2vw]">
               Na Starky, utilizamos o sistema de repetição espaçada{" "}
               <strong className="lufga-bold">
                 <ColorInScroll text={"(SRS - Spaced Repetition System)"} />
@@ -132,7 +121,7 @@ const Main = () => {
               , que otimiza a memorização e retenção de informações a longo
               prazo.
             </p>
-            <p className="lufga-reg lg:text-[1.4vw]">
+            <p className="lufga-reg lg:text-[1.2vw]">
               Ele funciona através de cartões de estudo{" "}
               <strong className="lufga-bold">
                 <ColorInScroll text={"(cards)"} />
@@ -140,21 +129,92 @@ const Main = () => {
               , que são revisados de acordo com a dificuldade que o usuário
               atribui a cada um.
             </p>
-            <p className="lufga-reg lg:text-[1.4vw]">
+            <p className="lufga-reg lg:text-[1.2vw]">
               Quando você aprende algo pela primeira vez, sua memória desaparece
               rapidamente, mas se você revisar, isso reforçará sua memória
               novamente.
             </p>
           </div>
-          <div>
+          <div className="pointer-events-none">
             <img
               src={graphic}
               alt="graphic"
-              className="pointer-events-none lg:w-[45vw] lg:translate-y-[-2.5vw]"
+              className="lg:w-[40vw] lg:translate-y-[-3vw]"
             />
           </div>
         </div>
       </div>
+      <footer className="relative hidden items-center justify-center mt-[5vw] lg:flex">
+        <img
+          src={celphones}
+          alt="celphones"
+          className="select-none pointer-events-auto lg:w-[50vw] lg:translate-y-[-1vw] lg:-translate-x-[22vw]"
+        />
+        <div className="absolute right-0 top-0 text-right">
+          <h2 className="uppercase lufga-bold text-[3.8vw] leading-[4vw] ">
+            <span className="block">Transforme</span>
+            <span className="block">sua maneira</span>
+            <span className="block">de estudar!</span>
+          </h2>
+          <div className="w-[35vw] mt-[2vw]">
+            <p className="text-[1.2vw]">
+              Acesse os links abaixo para acessar o programa e/ou também para
+              conhecer mais o criador desse site! :)
+            </p>
+            <div className="my-[2vw]">
+              <nav className="footer-links">
+                <ul className="flex flex-col gap-[.5vw] items-end justify-center">
+                  <li>
+                    <Link to={"/app"}>
+                      <button className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out lg:rounded-[1.2vw] lg:px-[1.5vw] lg:py-[.6vw] hover:bg-[#131986]">
+                        <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[1.5vw]">
+                          Acessar o programa
+                        </h2>
+                      </button>
+                    </Link>
+                  </li>
+                  <li className="mt-[2vw] transition-all duration-[.3s] w-fit ease-in-out text-[var(--white-gray)] hover:text-[var(--blue-midnight)] ">
+                    <a
+                      href="https://www.linkedin.com/in/felipesoarws/"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex items-center justify-start gap-[.6vw]"
+                    >
+                      <span className="text-[1.3vw] ">Felipe Soares</span>
+                      <LinkedinLogo size={40} color="#ececec" weight="fill" />
+                    </a>
+                  </li>
+                  <li className="mt-[.7vw] transition-all duration-[.3s] w-fit ease-in-out text-[var(--white-gray)] hover:text-[var(--blue-midnight)] ">
+                    <a
+                      href="https://github.com/felipesoarws/"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex items-center justify-start gap-[.6vw]"
+                    >
+                      <span className="text-[1.3vw] ">@felipesoarws</span>
+                      <GithubLogo size={40} color="#ececec" weight="fill" />
+                    </a>
+                  </li>
+                  <li className="mt-[.7vw] transition-all duration-[.3s] w-fit ease-in-out text-[var(--white-gray)] hover:text-[var(--blue-midnight)] ">
+                    <a
+                      href="https://www.instagram.com/felipesoarws/"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex items-center justify-start gap-[.6vw]"
+                    >
+                      <span className="text-[1.3vw] ">@felipesoarws</span>
+                      <InstagramLogo size={40} color="#ececec" weight="fill" />
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <span className="block mt-[4vw] text-[#ffffff]">
+                © 2025 felipesoarws
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
@@ -164,13 +224,13 @@ const Item = ({ number, desc }) => {
     <>
       <div className="flex items-center justify-start gap-[1.2rem] lg:gap-[1vw]">
         <div className="flex items-center justify-center bg-[#fff] min-w-[2rem] min-h-[2rem] p-[.3rem] lg:p-[.5vw] lg:w-[2.3vw] lg:h-[2.3vw]">
-          <span className="lufga-bold text-[var(--blue-light)] lg:text-[1.1vw]">
+          <span className="lufga-bold text-[var(--blue-light)] lg:text-[1.2vw]">
             {number}
           </span>
         </div>
-        <p className="lg:text-[1.2vw] leading-5 lg:leading-[2vw]">{desc}</p>
+        <p className="lg:text-[1.1vw] leading-5 lg:leading-[2vw]">{desc}</p>
       </div>
-      <span className="bg-[#ffffff73] block h-[.1vw] lg:w-[45vw]"></span>
+      <span className="bg-[#ffffff73] block h-[.1vw] lg:w-[43vw]"></span>
     </>
   );
 };

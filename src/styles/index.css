@@ -116,3 +116,12 @@ body {
 .deck-item.flipped .back {
   transform: rotateY(0deg);
 }
+
+/* footer hover */
+footer .footer-links li svg {
+  transition: all 0.3s ease-in-out;
+}
+footer .footer-links li:hover svg {
+  transform: scale(1.1);
+  fill: var(--blue-midnight);
+}
