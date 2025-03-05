@@ -344,7 +344,7 @@ const Application = () => {
       ...selectedEditCard,
       category: editedCategory || selectedEditCard.category,
       question: editedQuestion || selectedEditCard.question,
-      answer: editedAnswer || selectedEditCard.question,
+      answer: editedAnswer || selectedEditCard.answer,
       nextReviewDate: getLocalDate(),
       status: "new",
     };
@@ -384,6 +384,7 @@ const Application = () => {
   const revisarDeck = (deck) => {
     setShowAnswer(false);
     const selectedDeck = cards.filter((card) => card.category == deck);
+    console.log(selectedDeck);
 
     const isThereCardToReview = selectedDeck.filter(
       (card) => card.status === "new" || card.status === "toReview"

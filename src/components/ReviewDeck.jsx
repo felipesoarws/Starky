@@ -96,22 +96,22 @@ const ReviewDeck = ({
                 <div className="flex flex-col gap-2 lg:gap-[1vw]">
                   {showAnswer ? (
                     <div
-                      className={`deck-item bg-[#ffffff25] text-center overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[34vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[40vh]  lg:rounded-[.5vw]  ${
+                      className={`deck-item bg-[#ffffff25] text-left overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[34vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[40vh]  lg:rounded-[.5vw] lg:leading-[1.2vw] ${
                         showAnswer ? "flipped" : ""
                       }`}
                     >
-                      <div className="card-face front absolute transition-transform duration-[0.6s] ease-[ease-in-out];">
+                      <div className="card-face front absolute transition-transform duration-[0.6s] ease-[ease-in-out]">
                         {mostRecentCard ? (
-                          <h1 className="lg:text-[2.5vw]">
+                          <h1 className="lg:text-[1.1vw]">
                             {mostRecentCard.question}
                           </h1>
                         ) : (
                           <></>
                         )}
                       </div>
-                      <div className="card-face back absolute transition-transform duration-[0.6s] ease-[ease-in-out];">
+                      <div className="card-face back absolute transition-transform duration-[0.6s] ease-[ease-in-out]">
                         {mostRecentCard ? (
-                          <h1 className="lg:text-[2.5vw]">
+                          <h1 className="lg:text-[1.1vw]">
                             {mostRecentCard.answer}
                           </h1>
                         ) : (
@@ -121,22 +121,22 @@ const ReviewDeck = ({
                     </div>
                   ) : (
                     <div
-                      className={`deck-item bg-[#ffffff25] text-center overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[45vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[48vw]  lg:rounded-[.5vw] ${
+                      className={`deck-item bg-[#ffffff25] text-left overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[45vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[48vw] lg:rounded-[.5vw] lg:leading-[1.2vw] ${
                         showAnswer ? "flipped" : ""
                       }`}
                     >
-                      <div className="card-face front absolute transition-transform duration-[0.6s] ease-[ease-in-out];">
+                      <div className="card-face front absolute transition-transform duration-[0.6s] ease-[ease-in-out] whitespace-pre-wrap">
                         {mostRecentCard ? (
-                          <h1 className="text-[1.2rem] lg:text-[2.5vw]">
+                          <h1 className="text-[.9rem] lg:text-[1.1vw]">
                             {mostRecentCard.question}
                           </h1>
                         ) : (
                           <></>
                         )}
                       </div>
-                      <div className="card-face back absolute transition-transform duration-[0.6s] ease-[ease-in-out];">
+                      <div className="card-face back absolute transition-transform duration-[0.6s] ease-[ease-in-out] whitespace-pre-wrap">
                         {mostRecentCard ? (
-                          <h1 className="text-[1.2rem] lg:text-[2.5vw]">
+                          <h1 className="text-[.9rem] lg:text-[1.1vw]">
                             {mostRecentCard.answer}
                           </h1>
                         ) : (

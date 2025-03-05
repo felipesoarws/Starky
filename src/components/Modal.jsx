@@ -18,7 +18,7 @@ const Modal = ({ isOpen, onClose, children, width, bgColor }) => {
               bgColor === "blue"
                 ? "text-[var(--white-light)]"
                 : "text-[var(--blue-light)]"
-            } z-1000  cursor-pointer transition-all ease-in-out duration-[.3s] lufga-reg modal-close  text-5xl -top-1 right-2 lg:top-[.5vw] lg:right-[1vw] lg:text-[5vw] hover:text-[var(--blue-midnight)]`}
+            } z-1000  cursor-pointer transition-all ease-in-out duration-[.3s] lufga-reg modal-close  text-5xl -top-1 right-2 lg:top-[-.2vw] lg:right-[1vw] lg:text-[5vw] hover:text-[var(--blue-midnight)]`}
             onClick={onClose}
           >
             ×

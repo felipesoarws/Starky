@@ -47,7 +47,7 @@ const EditCard = ({
                           type="button"
                           key={flashcard.id}
                           onClick={() => editDeck(flashcard)}
-                          className="text-[var(--white-gray)] bg-[#ececec25] text-left cursor-pointer border-[var(--blue-midnight)] text-[.9rem] p-1 border-l-[.3rem] w-[100rem] lg:border-l-[.3vw] lg:w-[15vw] lg:px-[1.5vw] lg:py-[.4vw] lg:text-[1vw] hover:bg-[#ececec35]"
+                          className="text-[var(--white-gray)] bg-[#ececec25] text-left whitespace-nowrap cursor-pointer border-[var(--blue-midnight)] text-[.9rem] p-1 border-l-[.3rem] overflow-hidden w-[100rem] lg:border-l-[.3vw] lg:w-[15vw] lg:h-[2vw] lg:px-[1.5vw] lg:py-[.4vw] lg:text-[1vw] hover:bg-[#ececec35]"
                         >
                           {flashcard.question}
                         </button>
