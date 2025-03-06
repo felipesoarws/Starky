@@ -32,7 +32,7 @@ export default Home;
 const Header = () => {
   return (
     <div className="min-h-[90vh]">
-      <div className="fixed rounded-[2rem] backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] z-50 lg:p-[.8vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[1vw] lg:left-[3vw] lg:right-[3vw] ">
+      <div className="fixed rounded-[2rem] backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] lg:p-[.8vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[1vw] lg:left-[3vw] lg:right-[3vw] ">
         <div className="flex justify-between items-center">
           <h2
             className="lufga-bold lg:text-[1.4vw] pointer-events-none"

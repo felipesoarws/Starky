@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import AOS from "aos";
-import { CaretDown } from "@phosphor-icons/react";
+import { List, CaretDown } from "@phosphor-icons/react";
 
 // data
 import decksThemes from "../../public/data/links.json";
@@ -655,7 +655,7 @@ const Application = () => {
 
   return (
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
-      <div className="fixed rounded-[2rem] backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] z-50 lg:p-[.8vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[1vw] lg:left-[3vw] lg:right-[3vw] ">
+      <div className="z-1 fixed rounded-[2rem] backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] lg:p-[.8vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[1vw] lg:left-[3vw] lg:right-[3vw] ">
         <div className="flex justify-between items-center">
           <h2
             className="lufga-bold lg:text-[1.4vw]"
@@ -714,18 +714,24 @@ const Application = () => {
                   Novo Card
                 </h2>
               </button>
-              <MobileMenu
-                isMobileMenuOpen={isMobileMenuOpen}
-                setIsMobileMenuOpen={setIsMobileMenuOpen}
-                openEditCardModal={openEditCardModal}
-                handleButtonClick={handleButtonClick}
-              />
+              <div
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="cursor-pointer block lg:hidden"
+              >
+                <List size={32} color="#ececec" />
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <MobileMenu
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+        openEditCardModal={openEditCardModal}
+        handleButtonClick={handleButtonClick}
+      />
 
-      <main className="mt-6 lg:mt-[6vw] lg:min-h-[72vh]">
+      <main className="mt-25 lg:mt-[6vw] lg:min-h-[72vh]">
         <NewCard
           isNewCardModalOpen={isNewCardModalOpen}
           closeNewCardModal={closeNewCardModal}
