@@ -1,0 +1,252 @@
+[
+  {
+    "answer": "HyperText Markup Language",
+    "category": "HTML/CSS",
+    "question": "O que significa a sigla HTML?"
+  },
+  {
+    "answer": "Cascading Style Sheets",
+    "category": "HTML/CSS",
+    "question": "O que significa a sigla CSS?"
+  },
+  {
+    "answer": "<!DOCTYPE html>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir o tipo de documento como HTML5?"
+  },
+  {
+    "answer": "<html>",
+    "category": "HTML/CSS",
+    "question": "Qual tag define o início de um documento HTML?"
+  },
+  {
+    "answer": "<head>",
+    "category": "HTML/CSS",
+    "question": "Qual tag contém metadados sobre o documento HTML, como o título e links para CSS?"
+  },
+  {
+    "answer": "<title>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir o título de uma página HTML?"
+  },
+  {
+    "answer": "<body>",
+    "category": "HTML/CSS",
+    "question": "Qual tag define o conteúdo principal de uma página HTML?"
+  },
+  {
+    "answer": "<h1> a <h6>",
+    "category": "HTML/CSS",
+    "question": "Quais tags são usadas para definir cabeçalhos em HTML?"
+  },
+  {
+    "answer": "<p>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir um parágrafo em HTML?"
+  },
+  {
+    "answer": "<a>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar um link em HTML?"
+  },
+  {
+    "answer": "href",
+    "category": "HTML/CSS",
+    "question": "Qual atributo da tag <a> especifica o URL do link?"
+  },
+  {
+    "answer": "<img>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para inserir uma imagem em HTML?"
+  },
+  {
+    "answer": "src",
+    "category": "HTML/CSS",
+    "question": "Qual atributo da tag <img> especifica o caminho da imagem?"
+  },
+  {
+    "answer": "<ul>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar uma lista não ordenada em HTML?"
+  },
+  {
+    "answer": "<ol>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar uma lista ordenada em HTML?"
+  },
+  {
+    "answer": "<li>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir um item em uma lista em HTML?"
+  },
+  {
+    "answer": "<div>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar uma divisão ou seção em HTML?"
+  },
+  {
+    "answer": "<span>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para agrupar elementos inline em HTML?"
+  },
+  {
+    "answer": "<table>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar uma tabela em HTML?"
+  },
+  {
+    "answer": "<tr>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir uma linha em uma tabela HTML?"
+  },
+  {
+    "answer": "<td>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir uma célula em uma tabela HTML?"
+  },
+  {
+    "answer": "<th>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para definir um cabeçalho de célula em uma tabela HTML?"
+  },
+  {
+    "answer": "<form>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar um formulário em HTML?"
+  },
+  {
+    "answer": "<input>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar um campo de entrada em um formulário HTML?"
+  },
+  {
+    "answer": "<button>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para criar um botão em HTML?"
+  },
+  {
+    "answer": "<label>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para associar um texto a um campo de formulário em HTML?"
+  },
+  {
+    "answer": "type",
+    "category": "HTML/CSS",
+    "question": "Qual atributo da tag <input> define o tipo de campo, como texto, senha ou botão?"
+  },
+  {
+    "answer": "<style>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para incluir CSS diretamente em um documento HTML?"
+  },
+  {
+    "answer": "<link>",
+    "category": "HTML/CSS",
+    "question": "Qual tag é usada para vincular um arquivo CSS externo a um documento HTML?"
+  },
+  {
+    "answer": "rel='stylesheet'",
+    "category": "HTML/CSS",
+    "question": "Qual atributo da tag <link> especifica que o arquivo vinculado é uma folha de estilo?"
+  },
+  {
+    "answer": "color",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para definir a cor do texto?"
+  },
+  {
+    "answer": "font-size",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para definir o tamanho da fonte?"
+  },
+  {
+    "answer": "margin",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para definir o espaço externo de um elemento?"
+  },
+  {
+    "answer": "padding",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para definir o espaço interno de um elemento?"
+  },
+  {
+    "answer": "border",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para definir a borda de um elemento?"
+  },
+  {
+    "answer": "display: flex;",
+    "category": "HTML/CSS",
+    "question": "Qual valor da propriedade CSS 'display' é usado para criar um layout flexível?"
+  },
+  {
+    "answer": "text-align",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para alinhar o texto horizontalmente?"
+  },
+  {
+    "answer": "background-color",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para definir a cor de fundo de um elemento?"
+  },
+  {
+    "answer": "float",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para posicionar um elemento à esquerda ou à direita?"
+  },
+  {
+    "answer": "position: absolute;",
+    "category": "HTML/CSS",
+    "question": "Qual valor da propriedade CSS 'position' é usado para posicionar um elemento em relação ao seu contêiner mais próximo?"
+  },
+  {
+    "answer": "z-index",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para controlar a ordem de sobreposição de elementos?"
+  },
+  {
+    "answer": "box-shadow",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para adicionar uma sombra a um elemento?"
+  },
+  {
+    "answer": "transition",
+    "category": "HTML/CSS",
+    "question": "Qual propriedade CSS é usada para criar animações suaves entre estados?"
+  },
+  {
+    "answer": "@media",
+    "category": "HTML/CSS",
+    "question": "Qual regra CSS é usada para aplicar estilos com base no tamanho da tela?"
+  },
+  {
+    "answer": "class",
+    "category": "HTML/CSS",
+    "question": "Qual atributo HTML é usado para aplicar estilos CSS a múltiplos elementos?"
+  },
+  {
+    "answer": "id",
+    "category": "HTML/CSS",
+    "question": "Qual atributo HTML é usado para aplicar estilos CSS a um único elemento?"
+  },
+  {
+    "answer": "hover",
+    "category": "HTML/CSS",
+    "question": "Qual pseudoclasse CSS é usada para aplicar estilos quando o usuário passa o mouse sobre um elemento?"
+  },
+  {
+    "answer": "grid",
+    "category": "HTML/CSS",
+    "question": "Qual sistema de layout CSS é usado para criar layouts complexos em duas dimensões?"
+  },
+  {
+    "answer": "vh",
+    "category": "HTML/CSS",
+    "question": "Qual unidade CSS representa 1% da altura da viewport?"
+  },
+  {
+    "answer": "vw",
+    "category": "HTML/CSS",
+    "question": "Qual unidade CSS representa 1% da largura da viewport?"
+  }
+]

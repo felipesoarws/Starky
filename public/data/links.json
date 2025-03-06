@@ -1,0 +1,42 @@
+[
+  {
+    "category": "HTML & CSS",
+    "description": "50 cards sobre HTML e CSS",
+    "file": "./data/decks/starky_html&css_decks.json"
+  },
+  {
+    "category": "JavaScript",
+    "description": "50 cards sobre JavaScript",
+    "file": "./data/decks/starky_javascript_decks.json"
+  },
+  {
+    "category": "Inglês A1",
+    "description": "50 cards sobre inglês iniciante",
+    "file": "./data/decks/starky_ingles_a1.json"
+  },
+  {
+    "category": "Inglês A2",
+    "description": "50 cards sobre inglês básico",
+    "file": "./data/decks/starky_ingles_a2.json"
+  },
+  {
+    "category": "Inglês B1",
+    "description": "50 cards sobre inglês intermediário",
+    "file": "./data/decks/starky_ingles_b1.json"
+  },
+  {
+    "category": "Inglês B2",
+    "description": "50 cards sobre inglês inter-avançado",
+    "file": "./data/decks/starky_ingles_b2.json"
+  },
+  {
+    "category": "Inglês C1",
+    "description": "50 cards sobre inglês avançado",
+    "file": "./data/decks/starky_ingles_c1.json"
+  },
+  {
+    "category": "Inglês C2",
+    "description": "50 cards sobre inglês proficiente",
+    "file": "./data/decks/starky_ingles_c2.json"
+  }
+]

@@ -13,8 +13,6 @@ import graphic from "../assets/images/graphic.png";
 import celphones from "../assets/images/celphones.png";
 
 const Home = () => {
-  const [scrollHeight, setScrollHeight] = useState(0);
-
   useEffect(() => {
     AOS.init();
     document.title = "starky | seu app de estudo";
@@ -34,7 +32,7 @@ export default Home;
 const Header = () => {
   return (
     <div className="min-h-[90vh]">
-      <div className="fixed rounded-[2rem]  backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] z-50 lg:p-[1vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[2vw] lg:left-[3vw] lg:right-[3vw] ">
+      <div className="fixed rounded-[2rem] backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] z-50 lg:p-[.8vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[1vw] lg:left-[3vw] lg:right-[3vw] ">
         <div className="flex justify-between items-center">
           <h2
             className="lufga-bold lg:text-[1.4vw] pointer-events-none"
@@ -48,8 +46,13 @@ const Header = () => {
               className="cursor-pointer text-[.8rem] lg:text-[1.1vw]"
               data-aos="fade-down"
               data-aos-duration="1000"
+              onClick={() => {
+                window.scrollTo({
+                  top: window.innerHeight * 0.75,
+                });
+              }}
             >
-              <a href="#como-funciona">Como funciona</a>
+              Como funciona
             </button>
             <Link to={"/app"}>
               <button
@@ -101,8 +104,11 @@ const Header = () => {
 
 const Main = () => {
   return (
-    <div className="flex flex-col gap-[2rem] lg:gap-[1vw] lg:mx-[3vw]">
-      <div id="como-funciona" className="lg:mb-[10vw]">
+    <div
+      className="flex flex-col gap-[2rem] lg:gap-[1vw] lg:mx-[3vw]"
+      id="como-funciona"
+    >
+      <div className="lg:mb-[10vw]">
         <div className="flex items-center justify-center lg:gap-[.5vw] lg:justify-between">
           <h2 className="lufga-bold text-center text-[1.5rem] lg:text-[1.5vw] lg:text-left">
             Como funciona o Starky?
@@ -388,7 +394,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </nav>
-              <span className="block mt-[4vw] text-[#ffffff]">
+              <span className="block mt-[4vw] text-[#ffffff] lg:text-[1.1vw]">
                 © 2025 felipesoarws
               </span>
             </div>

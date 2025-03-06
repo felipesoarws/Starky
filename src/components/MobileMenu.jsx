@@ -4,6 +4,7 @@ const MobileMenu = ({
   isMobileMenuOpen,
   setIsMobileMenuOpen,
   openEditCardModal,
+  handleButtonClick,
 }) => {
   return (
     <div className="block lg:hidden">
@@ -35,7 +36,20 @@ const MobileMenu = ({
               <button
                 className={`${
                   isMobileMenuOpen ? "opacity-100" : "opacity-0"
-                } cursor-pointer bg-[#ffffff] text-[var(--blue-light)] rounded-[1rem] px-[.8rem] p-[.5rem] w-[40vw] text-[1.1rem] block transition-all ease-in-out duration-[.3s]  lg:text-[1.1vw] lg:hidden hover:bg-[var(--blue-midnight)] hover:text-[var(--white-gray)] `}
+                } cursor-pointer bg-[#ffffff] text-[var(--blue-light)] rounded-[1rem] px-[.8rem] p-[.5rem] w-[40vw] text-[1rem] block transition-all ease-in-out duration-[.3s]  lg:text-[1.1vw] lg:hidden hover:bg-[var(--blue-midnight)] hover:text-[var(--white-gray)] `}
+                onClick={() => {
+                  handleButtonClick();
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Importar Decks
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${
+                  isMobileMenuOpen ? "opacity-100" : "opacity-0"
+                } cursor-pointer bg-[#ffffff] text-[var(--blue-light)] rounded-[1rem] px-[.8rem] p-[.5rem] w-[40vw] text-[1rem] block transition-all ease-in-out duration-[.3s]  lg:text-[1.1vw] lg:hidden hover:bg-[var(--blue-midnight)] hover:text-[var(--white-gray)] `}
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                 }}
@@ -48,7 +62,7 @@ const MobileMenu = ({
               <button
                 className={`${
                   isMobileMenuOpen ? "opacity-100" : "opacity-0"
-                } cursor-pointer bg-[#ffffff] text-[var(--blue-light)] rounded-[1rem] px-[.8rem] p-[.5rem] w-[40vw] text-[1.1rem] block transition-all ease-in-out duration-[.3s]  lg:text-[1.1vw] lg:hidden hover:bg-[var(--blue-midnight)] hover:text-[var(--white-gray)] `}
+                } cursor-pointer bg-[#ffffff] text-[var(--blue-light)] rounded-[1rem] px-[.8rem] p-[.5rem] w-[40vw] text-[1rem] block transition-all ease-in-out duration-[.3s]  lg:text-[1.1vw] lg:hidden hover:bg-[var(--blue-midnight)] hover:text-[var(--white-gray)] `}
                 onClick={() => {
                   openEditCardModal();
                   setIsMobileMenuOpen(false);

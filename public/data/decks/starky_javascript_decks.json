@@ -1,0 +1,252 @@
+[
+  {
+    "answer": "JavaScript",
+    "category": "JavaScript",
+    "question": "Qual linguagem de programação é conhecida por ser a 'linguagem da web'?"
+  },
+  {
+    "answer": "var, let e const",
+    "category": "JavaScript",
+    "question": "Quais palavras-chave são usadas para declarar variáveis em JavaScript?"
+  },
+  {
+    "answer": "let",
+    "category": "JavaScript",
+    "question": "Qual palavra-chave é usada para declarar uma variável com escopo de bloco em JavaScript?"
+  },
+  {
+    "answer": "const",
+    "category": "JavaScript",
+    "question": "Qual palavra-chave é usada para declarar uma constante em JavaScript?"
+  },
+  {
+    "answer": "function",
+    "category": "JavaScript",
+    "question": "Qual palavra-chave é usada para declarar uma função em JavaScript?"
+  },
+  {
+    "answer": "return",
+    "category": "JavaScript",
+    "question": "Qual palavra-chave é usada para retornar um valor de uma função em JavaScript?"
+  },
+  {
+    "answer": "console.log()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para exibir mensagens no console do navegador?"
+  },
+  {
+    "answer": "typeof",
+    "category": "JavaScript",
+    "question": "Qual operador é usado para verificar o tipo de uma variável em JavaScript?"
+  },
+  {
+    "answer": "===",
+    "category": "JavaScript",
+    "question": "Qual operador é usado para comparar valor e tipo em JavaScript?"
+  },
+  {
+    "answer": "&&",
+    "category": "JavaScript",
+    "question": "Qual operador lógico representa 'E' em JavaScript?"
+  },
+  {
+    "answer": "||",
+    "category": "JavaScript",
+    "question": "Qual operador lógico representa 'OU' em JavaScript?"
+  },
+  {
+    "answer": "!",
+    "category": "JavaScript",
+    "question": "Qual operador lógico representa 'NÃO' em JavaScript?"
+  },
+  {
+    "answer": "if...else",
+    "category": "JavaScript",
+    "question": "Qual estrutura condicional é usada para tomar decisões em JavaScript?"
+  },
+  {
+    "answer": "switch",
+    "category": "JavaScript",
+    "question": "Qual estrutura condicional é usada para múltiplas comparações em JavaScript?"
+  },
+  {
+    "answer": "for",
+    "category": "JavaScript",
+    "question": "Qual estrutura de repetição é usada para iterar sobre um bloco de código um número específico de vezes?"
+  },
+  {
+    "answer": "while",
+    "category": "JavaScript",
+    "question": "Qual estrutura de repetição é usada para iterar sobre um bloco de código enquanto uma condição for verdadeira?"
+  },
+  {
+    "answer": "do...while",
+    "category": "JavaScript",
+    "question": "Qual estrutura de repetição executa o bloco de código pelo menos uma vez, mesmo que a condição seja falsa?"
+  },
+  {
+    "answer": "Array",
+    "category": "JavaScript",
+    "question": "Qual objeto é usado para armazenar uma coleção de valores em JavaScript?"
+  },
+  {
+    "answer": ".push()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para adicionar um elemento ao final de um array em JavaScript?"
+  },
+  {
+    "answer": ".pop()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para remover o último elemento de um array em JavaScript?"
+  },
+  {
+    "answer": ".shift()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para remover o primeiro elemento de um array em JavaScript?"
+  },
+  {
+    "answer": ".unshift()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para adicionar um elemento ao início de um array em JavaScript?"
+  },
+  {
+    "answer": ".length",
+    "category": "JavaScript",
+    "question": "Qual propriedade retorna o número de elementos em um array em JavaScript?"
+  },
+  {
+    "answer": ".indexOf()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para encontrar o índice de um elemento em um array em JavaScript?"
+  },
+  {
+    "answer": ".includes()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para verificar se um array contém um determinado valor em JavaScript?"
+  },
+  {
+    "answer": "Objeto",
+    "category": "JavaScript",
+    "question": "Qual estrutura de dados é usada para armazenar pares de chave-valor em JavaScript?"
+  },
+  {
+    "answer": "JSON.parse()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para converter uma string JSON em um objeto JavaScript?"
+  },
+  {
+    "answer": "JSON.stringify()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para converter um objeto JavaScript em uma string JSON?"
+  },
+  {
+    "answer": "setTimeout()",
+    "category": "JavaScript",
+    "question": "Qual função é usada para executar um código após um determinado tempo em JavaScript?"
+  },
+  {
+    "answer": "setInterval()",
+    "category": "JavaScript",
+    "question": "Qual função é usada para executar um código repetidamente em intervalos de tempo em JavaScript?"
+  },
+  {
+    "answer": "addEventListener()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para adicionar um evento a um elemento HTML em JavaScript?"
+  },
+  {
+    "answer": "querySelector()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para selecionar um elemento HTML com base em um seletor CSS?"
+  },
+  {
+    "answer": "querySelectorAll()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para selecionar todos os elementos que correspondem a um seletor CSS?"
+  },
+  {
+    "answer": ".innerHTML",
+    "category": "JavaScript",
+    "question": "Qual propriedade é usada para definir ou obter o conteúdo HTML de um elemento?"
+  },
+  {
+    "answer": ".textContent",
+    "category": "JavaScript",
+    "question": "Qual propriedade é usada para definir ou obter o conteúdo de texto de um elemento?"
+  },
+  {
+    "answer": ".createElement()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para criar um novo elemento HTML em JavaScript?"
+  },
+  {
+    "answer": ".appendChild()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para adicionar um elemento filho a um elemento pai no DOM?"
+  },
+  {
+    "answer": ".removeChild()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para remover um elemento filho de um elemento pai no DOM?"
+  },
+  {
+    "answer": "Promises",
+    "category": "JavaScript",
+    "question": "Qual recurso é usado para lidar com operações assíncronas em JavaScript?"
+  },
+  {
+    "answer": "async/await",
+    "category": "JavaScript",
+    "question": "Qual sintaxe é usada para trabalhar com Promises de forma mais legível em JavaScript?"
+  },
+  {
+    "answer": ".then()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para lidar com o resultado de uma Promise em JavaScript?"
+  },
+  {
+    "answer": ".catch()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para lidar com erros em uma Promise em JavaScript?"
+  },
+  {
+    "answer": "fetch()",
+    "category": "JavaScript",
+    "question": "Qual função é usada para fazer requisições HTTP em JavaScript?"
+  },
+  {
+    "answer": "Arrow Functions",
+    "category": "JavaScript",
+    "question": "Qual tipo de função é escrita com a sintaxe `() => {}` em JavaScript?"
+  },
+  {
+    "answer": "Closure",
+    "category": "JavaScript",
+    "question": "Qual conceito em JavaScript permite que uma função acesse variáveis de seu escopo externo?"
+  },
+  {
+    "answer": "Hoisting",
+    "category": "JavaScript",
+    "question": "Qual conceito em JavaScript faz com que declarações de variáveis e funções sejam movidas para o topo do escopo?"
+  },
+  {
+    "answer": "this",
+    "category": "JavaScript",
+    "question": "Qual palavra-chave refere-se ao objeto atual em JavaScript?"
+  },
+  {
+    "answer": "bind()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para definir o valor de `this` em uma função em JavaScript?"
+  },
+  {
+    "answer": "call()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para chamar uma função com um valor específico de `this` e argumentos individuais?"
+  },
+  {
+    "answer": "apply()",
+    "category": "JavaScript",
+    "question": "Qual método é usado para chamar uma função com um valor específico de `this` e argumentos como um array?"
+  }
+]

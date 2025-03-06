@@ -1,0 +1,252 @@
+[
+  {
+    "answer": "Hello",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Olá' em inglês?"
+  },
+  {
+    "answer": "Goodbye",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Adeus' em inglês?"
+  },
+  {
+    "answer": "My name is...",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Meu nome é...' em inglês?"
+  },
+  {
+    "answer": "Yes",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Sim' em inglês?"
+  },
+  {
+    "answer": "No",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Não' em inglês?"
+  },
+  {
+    "answer": "Thank you",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Obrigado' em inglês?"
+  },
+  {
+    "answer": "Please",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Por favor' em inglês?"
+  },
+  {
+    "answer": "I am from...",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu sou de...' em inglês?"
+  },
+  {
+    "answer": "How are you?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Como você está?' em inglês?"
+  },
+  {
+    "answer": "I am fine",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou bem' em inglês?"
+  },
+  {
+    "answer": "What is your name?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Qual é o seu nome?' em inglês?"
+  },
+  {
+    "answer": "How old are you?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Quantos anos você tem?' em inglês?"
+  },
+  {
+    "answer": "I am 25 years old",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu tenho 25 anos' em inglês?"
+  },
+  {
+    "answer": "Where do you live?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Onde você mora?' em inglês?"
+  },
+  {
+    "answer": "I live in Brazil",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu moro no Brasil' em inglês?"
+  },
+  {
+    "answer": "What time is it?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Que horas são?' em inglês?"
+  },
+  {
+    "answer": "It is 3 o'clock",
+    "category": "Inglês A1",
+    "question": "Como se diz 'São 3 horas' em inglês?"
+  },
+  {
+    "answer": "I like pizza",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu gosto de pizza' em inglês?"
+  },
+  {
+    "answer": "I don't like coffee",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu não gosto de café' em inglês?"
+  },
+  {
+    "answer": "Can you help me?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Você pode me ajudar?' em inglês?"
+  },
+  {
+    "answer": "Where is the bathroom?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Onde fica o banheiro?' em inglês?"
+  },
+  {
+    "answer": "I am hungry",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou com fome' em inglês?"
+  },
+  {
+    "answer": "I am thirsty",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou com sede' em inglês?"
+  },
+  {
+    "answer": "I am tired",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou cansado' em inglês?"
+  },
+  {
+    "answer": "I am happy",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou feliz' em inglês?"
+  },
+  {
+    "answer": "I am sad",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou triste' em inglês?"
+  },
+  {
+    "answer": "I am cold",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou com frio' em inglês?"
+  },
+  {
+    "answer": "I am hot",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou com calor' em inglês?"
+  },
+  {
+    "answer": "I am sorry",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Sinto muito' em inglês?"
+  },
+  {
+    "answer": "Excuse me",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Com licença' em inglês?"
+  },
+  {
+    "answer": "I don't know",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu não sei' em inglês?"
+  },
+  {
+    "answer": "I understand",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu entendo' em inglês?"
+  },
+  {
+    "answer": "I don't understand",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu não entendo' em inglês?"
+  },
+  {
+    "answer": "Repeat, please",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Repita, por favor' em inglês?"
+  },
+  {
+    "answer": "Speak slowly, please",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Fale devagar, por favor' em inglês?"
+  },
+  {
+    "answer": "What is this?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'O que é isso?' em inglês?"
+  },
+  {
+    "answer": "How much is this?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Quanto custa isso?' em inglês?"
+  },
+  {
+    "answer": "I want water",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu quero água' em inglês?"
+  },
+  {
+    "answer": "I need help",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu preciso de ajuda' em inglês?"
+  },
+  {
+    "answer": "Where is the station?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Onde fica a estação?' em inglês?"
+  },
+  {
+    "answer": "I am lost",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou perdido' em inglês?"
+  },
+  {
+    "answer": "Call the police",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Chame a polícia' em inglês?"
+  },
+  {
+    "answer": "I love you",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu te amo' em inglês?"
+  },
+  {
+    "answer": "Good morning",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Bom dia' em inglês?"
+  },
+  {
+    "answer": "Good afternoon",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Boa tarde' em inglês?"
+  },
+  {
+    "answer": "Good night",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Boa noite' em inglês?"
+  },
+  {
+    "answer": "See you later",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Até mais tarde' em inglês?"
+  },
+  {
+    "answer": "I want to eat",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Eu quero comer' em inglês?"
+  },
+  {
+    "answer": "Where are you from?",
+    "category": "Inglês A1",
+    "question": "Como se diz 'De onde você é?' em inglês?"
+  },
+  {
+    "answer": "I am learning English",
+    "category": "Inglês A1",
+    "question": "Como se diz 'Estou aprendendo inglês' em inglês?"
+  }
+]

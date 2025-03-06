@@ -1,6 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import { CaretDown } from "@phosphor-icons/react";
+
+// data
+import decksThemes from "../../public/data/links.json";
+
+// styles
+import "aos/dist/aos.css";
 import "../styles/index.css";
 
 // components
@@ -17,15 +25,39 @@ const Application = () => {
   const [shouldAnimate, setShouldAnimate] = useState(false); // aparecer efeito de notificação do deck
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // conferir se o menu mobile está aberto
 
-  useEffect(() => {
-    if (!isCardsToReview) {
-      const timeoutId = setTimeout(() => {
-        setShouldAnimate(true);
-      }, 200);
+  // modal de criar novo card
+  const [isNewCardModalOpen, setNewCardModalOpen] = useState(false); // conferir se o modal de criar novo card está aberto
+  const openNewCardModal = () => setNewCardModalOpen(true);
+  const closeNewCardModal = () => {
+    setNewCardModalOpen(false);
+    cleanForm();
+  };
 
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isCardsToReview]);
+  // modal de editar o card
+  const [selectedDeck, setSelectedDeck] = useState([]); // deck selecionado para revisão
+  const [isEditCardModalOpen, setEditCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const openEditCardModal = () => setEditCardModalOpen(true);
+  const closeEditCardModal = () => {
+    setSelectedEditCard([]);
+    setEditCardModalOpen(false);
+  };
+
+  // modal de revisar o deck
+  const [showAnswer, setShowAnswer] = useState(false); // estado para mostrar se a resposta está aparecendo
+  const [isReviewCardModalOpen, setReviewCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const openReviewCardModal = () => setReviewCardModalOpen(true);
+  const closeReviewCardModal = () => setReviewCardModalOpen(false);
+
+  // modal para confirmar a opção de dificuldade
+  const [cardConfirmDifficulty, setConfirmCardDifficulty] = useState(false);
+  const [cardDifficulty, setCardDifficulty] = useState("");
+  const [isDifficultyModalOpen, setDifficultyModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const closeDifficultyModal = () => setDifficultyModalOpen(false);
+
+  // modal para confirmar a remoção do deck
+  const [confirmDeckRemoval, setConfirmDeckRemoval] = useState(false);
+  const [categoryDeckRemoval, setCategoryDeckRemoval] = useState("");
+  const [isDeckRemovalModalOpen, setDeckRemovalModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
 
   const selectRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -68,7 +100,21 @@ const Application = () => {
   ];
 
   useEffect(() => {
+    if (!isCardsToReview) {
+      const timeoutId = setTimeout(() => {
+        setShouldAnimate(true);
+      }, 200);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isCardsToReview]);
+
+  useEffect(() => {
     document.title = "starky | overview";
+    window.scrollTo({
+      top: 0,
+    });
+    AOS.init();
     const storedItems = JSON.parse(localStorage.getItem("cards")) || [];
 
     setCards(storedItems);
@@ -110,35 +156,6 @@ const Application = () => {
 
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
   };
-
-  // modal de criar novo card
-  const [isNewCardModalOpen, setNewCardModalOpen] = useState(false); // conferir se o modal de criar novo card está aberto
-  const openNewCardModal = () => setNewCardModalOpen(true);
-  const closeNewCardModal = () => {
-    setNewCardModalOpen(false);
-    cleanForm();
-  };
-
-  // modal de editar o card
-  const [selectedDeck, setSelectedDeck] = useState([]); // deck selecionado para revisão
-  const [isEditCardModalOpen, setEditCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
-  const openEditCardModal = () => setEditCardModalOpen(true);
-  const closeEditCardModal = () => {
-    setSelectedEditCard([]);
-    setEditCardModalOpen(false);
-  };
-
-  // modal de revisar o deck
-  const [showAnswer, setShowAnswer] = useState(false); // estado para mostrar se a resposta está aparecendo
-  const [isReviewCardModalOpen, setReviewCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
-  const openReviewCardModal = () => setReviewCardModalOpen(true);
-  const closeReviewCardModal = () => setReviewCardModalOpen(false);
-
-  // modal para confirmar a opção de dificuldade
-  const [cardConfirmDifficulty, setConfirmCardDifficulty] = useState(false);
-  const [cardDifficulty, setCardDifficulty] = useState("");
-  const [isDifficultyModalOpen, setDifficultyModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
-  const closeDifficultyModal = () => setDifficultyModalOpen(false);
 
   // atualizar o estado enquando o usuario digita nos inputs
   const handleNewCardInputChange = (e) => {
@@ -376,6 +393,8 @@ const Application = () => {
 
   // deletar card
   const deleteCard = (flashcard) => {
+    if (flashcard.length === 0) return;
+
     const updatedCards = cards.filter((card) => card.id !== flashcard.id);
     setCards(updatedCards);
     localStorage.setItem("cards", JSON.stringify(updatedCards));
@@ -383,11 +402,30 @@ const Application = () => {
     closeEditCardModal();
   };
 
+  // deletar deck
+  const deleteDeck = () => {
+    setConfirmDeckRemoval(true);
+    const filteredDeck = cards.filter((card) => {
+      return card.category !== categoryDeckRemoval;
+    });
+
+    if (confirmDeckRemoval) {
+      setCards(filteredDeck);
+      setDeckRemovalModalOpen(false);
+      localStorage.setItem("cards", JSON.stringify(filteredDeck));
+    }
+  };
+
+  useEffect(() => {
+    if (cards.length === 0) {
+      setEditCardModalOpen(false);
+    }
+  }, [cards]);
+
   // revisar Deck
   const revisarDeck = (deck) => {
     setShowAnswer(false);
     const selectedDeck = cards.filter((card) => card.category == deck);
-    console.log(selectedDeck);
 
     const isThereCardToReview = selectedDeck.filter(
       (card) => card.status === "new" || card.status === "toReview"
@@ -593,6 +631,8 @@ const Application = () => {
     }
   };
 
+  // atualizar lista de decks assim que algum for importado
+
   const updateDecks = (importedDecks) => {
     const newDecks = importedDecks.map((card) => ({
       id: uuidv4(),
@@ -615,59 +655,77 @@ const Application = () => {
 
   return (
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
-      <div>
+      <div className="fixed rounded-[2rem] backdrop-blur-[8.6px] top-[1.5rem] left-[2rem] right-[2rem] p-[.5rem] px-[1.5rem] bg-[rgba(99,238,238,0.05)] z-50 lg:p-[.8vw] lg:px-[1.5vw] lg:rounded-[2vw] lg:top-[1vw] lg:left-[3vw] lg:right-[3vw] ">
         <div className="flex justify-between items-center">
-          <h2 className="lufga-bold lg:text-[1.4vw]">
+          <h2
+            className="lufga-bold lg:text-[1.4vw]"
+            data-aos="fade-down"
+            data-aos-duration="500"
+          >
             <Link to={"/"}>starky.</Link>
           </h2>
-          <div className="flex justify-between gap-[.8rem] items-center lg:gap-[2.5vw]">
-            <div>
-              <input
-                type="file"
-                id="fileInput"
-                accept=".json"
-                onChange={handleFileChange}
-                className="hidden"
-                ref={fileInputRef}
+          <div className="flex justify-between gap-[1rem] items-center lg:gap-[2.5vw]">
+            <div className="flex justify-between gap-[.8rem] items-center lg:gap-[2.5vw]">
+              <div data-aos="fade-down" data-aos-duration="1000">
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept=".json"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  ref={fileInputRef}
+                />
+                <label htmlFor="fileInput">
+                  <button
+                    className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
+                    onClick={handleButtonClick}
+                  >
+                    Importar Decks
+                  </button>
+                </label>
+              </div>
+
+              <button
+                className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
+                data-aos="fade-down"
+                data-aos-duration="1500"
+              >
+                Exportar Decks
+              </button>
+
+              <button
+                className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
+                onClick={() => {
+                  if (cards.length === 0) return;
+                  openEditCardModal();
+                }}
+                data-aos="fade-down"
+                data-aos-duration="2000"
+              >
+                Editar Cards
+              </button>
+              <button
+                className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[var(--blue-midnight)]"
+                onClick={openNewCardModal}
+                data-aos="fade-down"
+                data-aos-duration="2500"
+              >
+                <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.9rem] lg:text-[1.1vw]">
+                  Novo Card
+                </h2>
+              </button>
+              <MobileMenu
+                isMobileMenuOpen={isMobileMenuOpen}
+                setIsMobileMenuOpen={setIsMobileMenuOpen}
+                openEditCardModal={openEditCardModal}
+                handleButtonClick={handleButtonClick}
               />
-              <label htmlFor="fileInput">
-                <button
-                  className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
-                  onClick={handleButtonClick}
-                >
-                  Importar Decks
-                </button>
-              </label>
             </div>
-
-            <button className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block">
-              Exportar Decks
-            </button>
-
-            <button
-              className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
-              onClick={openEditCardModal}
-            >
-              Editar Cards
-            </button>
-            <button
-              className="btn-header bg-[#FFFFFF] cursor-pointer transition-all duration-[.3s] ease-in-out rounded-[.8rem] px-[.6rem] lg:rounded-[1.2vw] lg:px-[1.2vw] lg:py-[.4vw] hover:bg-[var(--blue-midnight)]"
-              onClick={openNewCardModal}
-            >
-              <h2 className="text-[var(--blue-light)] transition-all duration-[.3s] ease-in-out text-[.9rem] lg:text-[1.1vw]">
-                Novo Card
-              </h2>
-            </button>
-            <MobileMenu
-              isMobileMenuOpen={isMobileMenuOpen}
-              setIsMobileMenuOpen={setIsMobileMenuOpen}
-              openEditCardModal={openEditCardModal}
-            />
           </div>
         </div>
       </div>
 
-      <main className="mt-6 lg:mt-[3vw]">
+      <main className="mt-6 lg:mt-[6vw] lg:min-h-[72vh]">
         <NewCard
           isNewCardModalOpen={isNewCardModalOpen}
           closeNewCardModal={closeNewCardModal}
@@ -682,20 +740,32 @@ const Application = () => {
           handleNewCardSubmit={handleNewCardSubmit}
         />
         <div className="flex flex-col gap-4 lg:gap-[1.5vw] lg:mx-[5vw] ">
-          <h1 className="lufga-bold text-center text-4xl lg:text-[3.5vw]">
+          <h1
+            className="lufga-bold text-center text-4xl lg:text-[3vw] lg:text-left"
+            data-aos="fade-right"
+            data-aos-duration="750"
+          >
             Seus Decks
           </h1>
           {cards.length < 1 && (
             <div className="text-center lg:leading-[2vw]">
-              <h1 className="lufga-bold text-2xl lg:text-[3vw]">
+              <h1
+                className="lufga-bold text-2xl lg:text-[3vw]"
+                data-aos="fade-down"
+                data-aos-duration="500"
+              >
                 Você não tem nenhum deck.
               </h1>
-              <h1 className="lufga-med text-[1.3rem] lg:text-[2vw]">
+              <h1
+                className="lufga-med text-[1.3rem] lg:text-[2vw]"
+                data-aos="fade-down"
+                data-aos-duration="1000"
+              >
                 Crie seus próprios cards ou importe os seus favoritos.
               </h1>
             </div>
           )}
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap items-center justify-center">
             {Object.keys(groupedFlashcards).map((category) => {
               const totalCards = groupedFlashcards[category].filter(
                 (flashcard) => flashcard
@@ -715,8 +785,10 @@ const Application = () => {
                 <div
                   key={category}
                   className="deck-item bg-[var(--white-gray)] relative overflow-hidden border-[var(--blue-light)] border-2 m-2 p-4 w-[20rem] h-[10rem] rounded-2xl flex flex-col justify-between border-solid transition-all ease-in-out duration-[.3s] lg:m-[1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[13vw] lg:border-[.1vw]  lg:rounded-[.5vw] hover:bg-[#ffffff85]"
+                  data-aos="fade-down"
+                  data-aos-duration="1000"
                 >
-                  <h2 className="lufga-bold text-[var(--blue-light)] text-2xl lg:text-[2.5vw]">
+                  <h2 className="lufga-bold text-[var(--blue-light)] text-2xl lg:text-[1.8vw]">
                     {category}
                   </h2>
                   <div className="flex items-end justify-between">
@@ -824,11 +896,87 @@ const Application = () => {
             editedAnswer={editedAnswer}
             setEditedAnswer={setEditedAnswer}
             deleteCard={deleteCard}
+            deleteDeck={deleteDeck}
+            isDeckRemovalModalOpen={isDeckRemovalModalOpen}
+            setDeckRemovalModalOpen={setDeckRemovalModalOpen}
+            setCategoryDeckRemoval={setCategoryDeckRemoval}
+            categoryDeckRemoval={categoryDeckRemoval}
           />
         </div>
       </main>
+      <Content decksThemes={decksThemes} CaretDown={CaretDown} />
     </div>
   );
 };
 
 export default Application;
+
+const Content = ({ CaretDown, decksThemes }) => {
+  const [isSectionHidden, setSectionHidden] = useState(true);
+
+  if (isSectionHidden) {
+    window.scrollTo({
+      top: 0,
+    });
+  }
+
+  return (
+    <div className="my-8 lg:my-[1.6vw] lg:mx-[3vw]">
+      <div className="flex items-center justify-center gap-2 lg:gap-[.5vw] lg:justify-between">
+        <h2 className="lufga-bold text-center text-[1.5rem] lg:text-[1.5vw] lg:text-left">
+          Decks prontos
+        </h2>
+        <span className="bg-[#ffffff73] block h-[.1vw] lg:w-[80%]"></span>
+        <button
+          className={`${
+            isSectionHidden ? "rotate-180" : "rotate-0"
+          } cursor-pointer transition-all ease-in-out duration-[.3s] hover:scale-115`}
+          onClick={() => setSectionHidden(!isSectionHidden)}
+        >
+          <CaretDown size={30} color="#ececec" weight="bold" />
+        </button>
+      </div>
+      <div className="flex items-top justify-between flex-col gap-[3rem] lg:flex-row lg:gap-[2vw] lg:mt-[1vw]">
+        <div
+          className={`${
+            isSectionHidden
+              ? "scale-y-0 opacity-0 h-[0vh]"
+              : "opacity-100 lg:h-[100%]"
+          }  transition-all ease-in-out duration-[.4s] text-center opacity-1 flex flex-col gap-[1rem] mt-2 lg:gap-[1.3vw] lg:mt-[1vw] lg:text-left`}
+        >
+          <h2
+            className="text-[1.5rem] m-2 leading-7 lg:text-[2.5vw] lg:w-[35vw] lg:mb-[2vw] lg:leading-[2.5vw]"
+            data-aos="fade-down"
+            data-aos-duration="750"
+          >
+            Baixe decks personalizados do seu tema preferido!
+          </h2>
+          <div className="flex items-center justify-center flex-wrap gap-6 lg:gap-[2vw]">
+            {decksThemes.map((theme, id) => (
+              <div
+                key={id}
+                className="bg-[var(--white-gray)] p-[1rem]  rounded-[1rem] w-[21rem] lg:p-[1.5vw]  lg:rounded-[1vw] lg:w-[20vw]"
+                data-aos="fade-down"
+                data-aos-duration="1000"
+              >
+                <div className="mb-4 lg:mb-[.8vw]">
+                  <h2 className="lufga-bold text-[1rem] lg:text-[1.5vw] text-[var(--blue-light)]">
+                    {theme.category}
+                  </h2>
+                  <p className="text-[var(--gray-dark)] text-[1rem] lg:text-[.9vw]">
+                    {theme.description}
+                  </p>
+                </div>
+                <button className="bg-[var(--blue-light)] transition-all ease-in-out duration-[.3s] cursor-pointer p-[.4rem] rounded-[.5rem] text-[1rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[.8vw] w-full hover:bg-[var(--blue-midnight)]">
+                  <a href={theme.file} download>
+                    Baixar Deck
+                  </a>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
