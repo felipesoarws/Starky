@@ -918,7 +918,7 @@ const Application = () => {
 export default Application;
 
 const Content = ({ CaretDown, decksThemes }) => {
-  const [isSectionHidden, setSectionHidden] = useState(true);
+  const [isSectionHidden, setSectionHidden] = useState(false);
 
   if (isSectionHidden) {
     window.scrollTo({
