@@ -41,7 +41,7 @@ const EditCard = ({
                     <h2 className="lufga-bold text-[var(--white-gray)] px-2 py-[.4rem] pt-[1rem] text-[1.1rem] lg:px-[1vw] lg:py-[.4vw] lg:pt-[1vw] lg:text-[1.5vw]">
                       {category}
                     </h2>
-                    <div className="flex flex-col">
+                    <div className="hidden lg:flex flex-col">
                       {groupedFlashcards[category].map((flashcard) => (
                         <button
                           type="button"
@@ -49,7 +49,19 @@ const EditCard = ({
                           onClick={() => editDeck(flashcard)}
                           className="text-[var(--white-gray)] bg-[#ececec25] text-left whitespace-nowrap cursor-pointer border-[var(--blue-midnight)] text-[.9rem] p-1 border-l-[.3rem] overflow-hidden w-[100rem] lg:border-l-[.3vw] lg:w-[15vw] lg:h-[2vw] lg:px-[1.5vw] lg:py-[.4vw] lg:text-[1vw] hover:bg-[#ececec35]"
                         >
-                          {flashcard.question}
+                          {flashcard.question.substring(0, 22) + "..."}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="flex flex-col lg:hidden">
+                      {groupedFlashcards[category].map((flashcard) => (
+                        <button
+                          type="button"
+                          key={flashcard.id}
+                          onClick={() => editDeck(flashcard)}
+                          className="text-[var(--white-gray)] bg-[#ececec25] text-left whitespace-nowrap cursor-pointer border-[var(--blue-midnight)] text-[.9rem] p-1 border-l-[.3rem] overflow-hidden w-[100rem] lg:border-l-[.3vw] lg:w-[15vw] lg:h-[2vw] lg:px-[1.5vw] lg:py-[.4vw] lg:text-[1vw] hover:bg-[#ececec35]"
+                        >
+                          {flashcard.question.substring(0, 35) + "..."}
                         </button>
                       ))}
                     </div>

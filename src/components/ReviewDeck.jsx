@@ -102,7 +102,7 @@ const ReviewDeck = ({
                     >
                       <div className="card-face front absolute transition-transform duration-[0.6s] ease-[ease-in-out]">
                         {mostRecentCard ? (
-                          <h1 className="lg:text-[1.1vw]">
+                          <h1 className="lg:text-[1.2vw]">
                             {mostRecentCard.question}
                           </h1>
                         ) : (
@@ -111,7 +111,7 @@ const ReviewDeck = ({
                       </div>
                       <div className="card-face back absolute transition-transform duration-[0.6s] ease-[ease-in-out]">
                         {mostRecentCard ? (
-                          <h1 className="lg:text-[1.1vw]">
+                          <h1 className="lg:text-[1.2vw]">
                             {mostRecentCard.answer}
                           </h1>
                         ) : (
@@ -127,7 +127,7 @@ const ReviewDeck = ({
                     >
                       <div className="card-face front absolute transition-transform duration-[0.6s] ease-[ease-in-out] whitespace-pre-wrap">
                         {mostRecentCard ? (
-                          <h1 className="text-[.9rem] lg:text-[1.1vw]">
+                          <h1 className="text-[.9rem] lg:text-[1.2vw]">
                             {mostRecentCard.question}
                           </h1>
                         ) : (
@@ -136,7 +136,7 @@ const ReviewDeck = ({
                       </div>
                       <div className="card-face back absolute transition-transform duration-[0.6s] ease-[ease-in-out] whitespace-pre-wrap">
                         {mostRecentCard ? (
-                          <h1 className="text-[.9rem] lg:text-[1.1vw]">
+                          <h1 className="text-[.9rem] lg:text-[1.2vw]">
                             {mostRecentCard.answer}
                           </h1>
                         ) : (

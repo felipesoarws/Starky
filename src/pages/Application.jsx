@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import "../styles/index.css";
 
@@ -25,7 +26,9 @@ const Application = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [isCardsToReview]);
+
   const selectRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   // criação de nova categoria
   const [newCategory, setNewCategory] = useState("");
@@ -221,7 +224,7 @@ const Application = () => {
     const hhT = date.getHours();
 
     const newCard = {
-      id: cards.length + 1,
+      id: uuidv4(),
       category: formData.category,
       question: formData.question,
       answer: formData.answer,
@@ -567,6 +570,49 @@ const Application = () => {
     return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
   };
 
+  // importar deck formato .json
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === "application/json") {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target.result;
+        try {
+          const json = JSON.parse(text);
+          updateDecks(json);
+        } catch (error) {
+          console.error("Erro ao imporar o deck:", error);
+        } finally {
+          event.target.value = "";
+        }
+      };
+      reader.readAsText(file);
+    } else {
+      console.error("Por favor, selecione um arquivo JSON válido.");
+      event.target.value = "";
+    }
+  };
+
+  const updateDecks = (importedDecks) => {
+    const newDecks = importedDecks.map((card) => ({
+      id: uuidv4(),
+      category: card.category,
+      question: card.question,
+      answer: card.answer,
+      status: "new",
+      creationDate: getLocalDate(),
+      nextReviewDate: getLocalDate(),
+    }));
+
+    const allCards = [...cards, ...newDecks];
+    setCards(allCards);
+    localStorage.setItem("cards", JSON.stringify(allCards));
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <div className="mx-6 my-6 lg:mx-[3vw] lg:my-[1.5vw]">
       <div>
@@ -575,6 +621,25 @@ const Application = () => {
             <Link to={"/"}>starky.</Link>
           </h2>
           <div className="flex justify-between gap-[.8rem] items-center lg:gap-[2.5vw]">
+            <div>
+              <input
+                type="file"
+                id="fileInput"
+                accept=".json"
+                onChange={handleFileChange}
+                className="hidden"
+                ref={fileInputRef}
+              />
+              <label htmlFor="fileInput">
+                <button
+                  className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
+                  onClick={handleButtonClick}
+                >
+                  Importar Decks
+                </button>
+              </label>
+            </div>
+
             <button className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block">
               Exportar Decks
             </button>

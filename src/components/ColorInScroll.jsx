@@ -1,20 +1,19 @@
 import { useInView } from "react-intersection-observer";
 
 const ColorInScroll = ({ text }) => {
-  // Usa o hook useInView para detectar quando o elemento está visível
   const { ref, inView } = useInView({
-    threshold: 0.5, // Define que o callback será chamado quando 50% do elemento estiver visível
-    triggerOnce: false, // Permite que o efeito seja ativado/desativado várias vezes
+    threshold: 0.5,
+    triggerOnce: false,
   });
 
   return (
     <span
       className="inline"
-      ref={ref} // Referência para o elemento que será observado
+      ref={ref}
       style={{
         backgroundColor: inView ? "#fff" : "transparent",
         color: "var(--blue-light)",
-        transition: "background-color 0.5s ease", // Adiciona uma transição suave
+        transition: "background-color 0.5s ease",
       }}
     >
       {text}
