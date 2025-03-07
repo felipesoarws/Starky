@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
@@ -1046,4 +1048,9 @@ const OtherDecks = ({ CaretDown, decksThemes }) => {
       </div>
     </div>
   );
+};
+
+OtherDecks.propTypes = {
+  CaretDown: PropTypes.element.isRequired,
+  decksThemes: PropTypes.array.isRequired,
 };

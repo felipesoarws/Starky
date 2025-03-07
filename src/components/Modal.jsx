@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 import "../styles/modal.css";
 
@@ -28,6 +29,14 @@ const Modal = ({ isOpen, onClose, children, width, bgColor }) => {
       </div>
     </CSSTransition>
   );
+};
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  width: PropTypes.string,
+  bgColor: PropTypes.string,
 };
 
 export default Modal;

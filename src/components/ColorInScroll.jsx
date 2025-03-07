@@ -1,4 +1,5 @@
 import { useInView } from "react-intersection-observer";
+import PropTypes from "prop-types";
 
 const ColorInScroll = ({ text }) => {
   const { ref, inView } = useInView({
@@ -19,6 +20,10 @@ const ColorInScroll = ({ text }) => {
       {text}
     </span>
   );
+};
+
+ColorInScroll.propTypes = {
+  text: PropTypes.string,
 };
 
 export default ColorInScroll;

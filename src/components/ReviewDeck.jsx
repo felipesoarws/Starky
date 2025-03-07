@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect } from "react";
 import Modal from "./Modal";
 
@@ -231,6 +232,24 @@ const ReviewDeck = ({
       </div>
     </>
   );
+};
+
+ReviewDeck.propTypes = {
+  selectedDeck: PropTypes.array.isRequired,
+  isReviewCardModalOpen: PropTypes.bool.isRequired,
+  isDifficultyModalOpen: PropTypes.bool.isRequired,
+  closeReviewCardModal: PropTypes.func.isRequired,
+  closeDifficultyModal: PropTypes.func.isRequired,
+  reviewOptions: PropTypes.array.isRequired,
+  cardDifficulty: PropTypes.string.isRequired,
+  cardConfirmDifficulty: PropTypes.bool.isRequired,
+  setDifficultyModalOpen: PropTypes.func.isRequired,
+  setCardDifficulty: PropTypes.func.isRequired,
+  setConfirmCardDifficulty: PropTypes.func.isRequired,
+  changeCardDetails: PropTypes.func.isRequired,
+  setShowAnswer: PropTypes.func.isRequired,
+  showAnswer: PropTypes.bool.isRequired,
+  getLocalDate: PropTypes.func.isRequired,
 };
 
 export default ReviewDeck;

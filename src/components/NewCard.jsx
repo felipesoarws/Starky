@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Modal from "./Modal";
 import { PlusCircle } from "@phosphor-icons/react";
 
@@ -134,6 +135,20 @@ const NewCard = ({
       </Modal>
     </div>
   );
+};
+
+NewCard.propTypes = {
+  isNewCardModalOpen: PropTypes.bool.isRequired,
+  closeNewCardModal: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
+  newCategory: PropTypes.string.isRequired,
+  missingInput: PropTypes.bool.isRequired,
+  twoCategories: PropTypes.bool.isRequired,
+  selectRef: PropTypes.any.isRequired,
+  groupedFlashcards: PropTypes.array.isRequired,
+  handleNewCardInputChange: PropTypes.func.isRequired,
+  handleNewCategoryChange: PropTypes.func.isRequired,
+  handleNewCardSubmit: PropTypes.func.isRequired,
 };
 
 export default NewCard;

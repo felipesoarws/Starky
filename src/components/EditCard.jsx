@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Trash, FloppyDisk } from "@phosphor-icons/react";
 
 import Modal from "./Modal";
@@ -197,6 +198,27 @@ const EditCard = ({
       </div>
     </>
   );
+};
+
+EditCard.propTypes = {
+  isEditCardModalOpen: PropTypes.bool.isRequired,
+  closeEditCardModal: PropTypes.func.isRequired,
+  handleEditedCardSubmit: PropTypes.func.isRequired,
+  groupedFlashcards: PropTypes.array.isRequired,
+  editDeck: PropTypes.func.isRequired,
+  editedCategory: PropTypes.string.isRequired,
+  setEditedCategory: PropTypes.func.isRequired,
+  editedQuestion: PropTypes.string.isRequired,
+  setEditedQuestion: PropTypes.func.isRequired,
+  editedAnswer: PropTypes.string.isRequired,
+  setEditedAnswer: PropTypes.func.isRequired,
+  selectedEditCard: PropTypes.array.isRequired,
+  deleteCard: PropTypes.func.isRequired,
+  deleteDeck: PropTypes.func.isRequired,
+  isDeckRemovalModalOpen: PropTypes.bool.isRequired,
+  setCategoryDeckRemoval: PropTypes.func.isRequired,
+  setDeckRemovalModalOpen: PropTypes.func.isRequired,
+  categoryDeckRemoval: PropTypes.string.isRequired,
 };
 
 export default EditCard;

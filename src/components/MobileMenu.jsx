@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { X } from "@phosphor-icons/react";
 
 const MobileMenu = ({
@@ -71,6 +72,14 @@ const MobileMenu = ({
       </div>
     </div>
   );
+};
+
+MobileMenu.propTypes = {
+  isMobileMenuOpen: PropTypes.bool.isRequired,
+  setIsMobileMenuOpen: PropTypes.func.isRequired,
+  openEditCardModal: PropTypes.func.isRequired,
+  handleButtonClick: PropTypes.func.isRequired,
+  setExportDeckModalOpen: PropTypes.func.isRequired,
 };
 
 export default MobileMenu;

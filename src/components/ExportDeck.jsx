@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Modal from "./Modal";
 
 const ExportDeck = ({
@@ -73,6 +74,15 @@ const ExportDeck = ({
       </Modal>
     </div>
   );
+};
+
+ExportDeck.propTypes = {
+  setSelectedCategories: PropTypes.func.isRequired,
+  setExportDeckModalOpen: PropTypes.func.isRequired,
+  isExportDeckModalOpen: PropTypes.bool.isRequired,
+  groupedFlashcards: PropTypes.object.isRequired,
+  selectedCategories: PropTypes.array.isRequired,
+  exportDeck: PropTypes.func.isRequired,
 };
 
 export default ExportDeck;
