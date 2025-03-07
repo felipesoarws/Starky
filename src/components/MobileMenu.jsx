@@ -5,6 +5,7 @@ const MobileMenu = ({
   setIsMobileMenuOpen,
   openEditCardModal,
   handleButtonClick,
+  setExportDeckModalOpen,
 }) => {
   return (
     <div className="z-50 block lg:hidden">
@@ -44,6 +45,7 @@ const MobileMenu = ({
                   isMobileMenuOpen ? "opacity-100" : "opacity-0"
                 } cursor-pointer bg-[var(--blue-light)] text-[var(--white-gray)] rounded-[1rem] px-[.8rem] p-[.5rem] w-[40vw] text-[1rem] block transition-all ease-in-out duration-[.3s]  lg:text-[1.1vw] lg:hidden hover:bg-[var(--white-gray)] hover:text-[var(--blue-light)] `}
                 onClick={() => {
+                  setExportDeckModalOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
               >

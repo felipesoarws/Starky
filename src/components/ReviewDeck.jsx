@@ -96,7 +96,7 @@ const ReviewDeck = ({
                 <div className="flex flex-col gap-2 lg:gap-[1vw]">
                   {showAnswer ? (
                     <div
-                      className={`deck-item bg-[#ffffff25] text-left overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[34vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[40vh]  lg:rounded-[.5vw] lg:leading-[1.2vw] ${
+                      className={`deck-item bg-[#ffffff25] text-center overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[34vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[25vw] lg:h-[40vh]  lg:rounded-[.5vw] lg:leading-[1.2vw] ${
                         showAnswer ? "flipped" : ""
                       }`}
                     >
@@ -121,7 +121,7 @@ const ReviewDeck = ({
                     </div>
                   ) : (
                     <div
-                      className={`deck-item bg-[#ffffff25] text-left overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[45vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[48vw] lg:rounded-[.5vw] lg:leading-[1.2vw] ${
+                      className={`deck-item bg-[#ffffff25] text-center overflow-hidden border-[var(--white-gray)]  border-[.1vw] p-[1vw] h-[45vh] w-[76vw] rounded-[.5vw] flex items-center justify-center border-solid transition-all ease-in-out duration-[.3s] lg:border-[.1vw] lg:p-[1vw] lg:w-[48vw] lg:rounded-[.5vw] lg:leading-[1.2vw] ${
                         showAnswer ? "flipped" : ""
                       }`}
                     >

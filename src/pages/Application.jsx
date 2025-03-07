@@ -16,6 +16,7 @@ import MobileMenu from "../components/MobileMenu";
 import NewCard from "../components/NewCard";
 import EditCard from "../components/EditCard";
 import ReviewDeck from "../components/ReviewDeck";
+import ExportDeck from "../components/ExportDeck";
 
 const Application = () => {
   const [cards, setCards] = useState([]); // todos os flashcards
@@ -35,7 +36,7 @@ const Application = () => {
 
   // modal de editar o card
   const [selectedDeck, setSelectedDeck] = useState([]); // deck selecionado para revisão
-  const [isEditCardModalOpen, setEditCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const [isEditCardModalOpen, setEditCardModalOpen] = useState(false);
   const openEditCardModal = () => setEditCardModalOpen(true);
   const closeEditCardModal = () => {
     setSelectedEditCard([]);
@@ -44,20 +45,24 @@ const Application = () => {
 
   // modal de revisar o deck
   const [showAnswer, setShowAnswer] = useState(false); // estado para mostrar se a resposta está aparecendo
-  const [isReviewCardModalOpen, setReviewCardModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const [isReviewCardModalOpen, setReviewCardModalOpen] = useState(false);
   const openReviewCardModal = () => setReviewCardModalOpen(true);
   const closeReviewCardModal = () => setReviewCardModalOpen(false);
 
   // modal para confirmar a opção de dificuldade
   const [cardConfirmDifficulty, setConfirmCardDifficulty] = useState(false);
   const [cardDifficulty, setCardDifficulty] = useState("");
-  const [isDifficultyModalOpen, setDifficultyModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const [isDifficultyModalOpen, setDifficultyModalOpen] = useState(false);
   const closeDifficultyModal = () => setDifficultyModalOpen(false);
 
   // modal para confirmar a remoção do deck
   const [confirmDeckRemoval, setConfirmDeckRemoval] = useState(false);
   const [categoryDeckRemoval, setCategoryDeckRemoval] = useState("");
-  const [isDeckRemovalModalOpen, setDeckRemovalModalOpen] = useState(false); // conferir se o modal de editar o card está aberto
+  const [isDeckRemovalModalOpen, setDeckRemovalModalOpen] = useState(false);
+
+  // modal para exportar decks
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isExportDeckModalOpen, setExportDeckModalOpen] = useState(false);
 
   const selectRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -416,6 +421,52 @@ const Application = () => {
     }
   };
 
+  // exportar deck
+  const exportDeck = () => {
+    if (selectedCategories.length === 0) return;
+
+    const modifiedFlashcards = Object.values(
+      Object.fromEntries(
+        Object.entries(groupedFlashcards)
+          .filter(([category]) => selectedCategories.includes(category))
+          .map(([category, cards]) => [category, cards.map(modifyCardData)])
+      )
+    ).flat();
+
+    // array dos cards para json
+    const json = JSON.stringify(modifiedFlashcards, null, 2);
+
+    // criar um blob (coleção de dados binarios) com o json
+    const blob = new Blob([json], { type: "application/json" });
+
+    // link de download
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${
+      selectedCategories.length > 1
+        ? "starky_decks"
+        : `starky_${selectedCategories[0].toLowerCase()}`
+    }.json`; // Nome do arquivo
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+  // alterar dados do card antes de exportar
+  const modifyCardData = (card) => {
+    return {
+      id: "-",
+      category: card.category,
+      question: card.question,
+      answer: card.answer,
+      status: "-",
+      creationDate: "-",
+      nextReviewDate: "-",
+    };
+  };
+
   useEffect(() => {
     if (cards.length === 0) {
       setEditCardModalOpen(false);
@@ -687,6 +738,7 @@ const Application = () => {
 
               <button
                 className="cursor-pointer text-[.7rem] hidden lg:text-[1.1vw] lg:block"
+                onClick={() => setExportDeckModalOpen(true)}
                 data-aos="fade-down"
                 data-aos-duration="1500"
               >
@@ -729,6 +781,7 @@ const Application = () => {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
         openEditCardModal={openEditCardModal}
         handleButtonClick={handleButtonClick}
+        setExportDeckModalOpen={setExportDeckModalOpen}
       />
 
       <main className="mt-25 lg:mt-[6vw] lg:min-h-[72vh]">
@@ -908,16 +961,24 @@ const Application = () => {
             setCategoryDeckRemoval={setCategoryDeckRemoval}
             categoryDeckRemoval={categoryDeckRemoval}
           />
+          <ExportDeck
+            setSelectedCategories={setSelectedCategories}
+            isExportDeckModalOpen={isExportDeckModalOpen}
+            setExportDeckModalOpen={setExportDeckModalOpen}
+            groupedFlashcards={groupedFlashcards}
+            selectedCategories={selectedCategories}
+            exportDeck={exportDeck}
+          />
         </div>
       </main>
-      <Content decksThemes={decksThemes} CaretDown={CaretDown} />
+      <OtherDecks decksThemes={decksThemes} CaretDown={CaretDown} />
     </div>
   );
 };
 
 export default Application;
 
-const Content = ({ CaretDown, decksThemes }) => {
+const OtherDecks = ({ CaretDown, decksThemes }) => {
   const [isSectionHidden, setSectionHidden] = useState(false);
 
   if (isSectionHidden) {
@@ -973,11 +1034,11 @@ const Content = ({ CaretDown, decksThemes }) => {
                     {theme.description}
                   </p>
                 </div>
-                <button className="bg-[var(--blue-light)] transition-all ease-in-out duration-[.3s] cursor-pointer p-[.4rem] rounded-[.5rem] text-[1rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[.8vw] w-full hover:bg-[var(--blue-midnight)]">
-                  <a href={theme.file} download>
+                <a href={theme.file} download>
+                  <button className="bg-[var(--blue-light)] transition-all ease-in-out duration-[.3s] cursor-pointer p-[.4rem] rounded-[.5rem] text-[1rem] lg:p-[.5vw] lg:rounded-[.5vw] lg:text-[.8vw] w-full hover:bg-[var(--blue-midnight)]">
                     Baixar Deck
-                  </a>
-                </button>
+                  </button>
+                </a>
               </div>
             ))}
           </div>
