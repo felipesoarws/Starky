@@ -72,6 +72,6 @@ Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICEN
 
 ---
 
-Feito com ❤️ por [Felipe Soares](https://www.linkedin.com/in/felipesoarws/). Visite meu [portfólio]([https://felipesoarws.github.io/](https://felipesoarws.vercel.app/)) para conhecer mais projetos.
+Feito com ❤️ por [Felipe Soares](https://www.linkedin.com/in/felipesoarws/). Visite meu [portfólio](https://felipesoarws.vercel.app/) para conhecer mais projetos.
 
 2025 © felipesoarws
