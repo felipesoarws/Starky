@@ -15,7 +15,7 @@ import celphones from "../assets/images/celphones.png";
 const Home = () => {
   useEffect(() => {
     AOS.init();
-    document.title = "starky | seu app de estudo";
+    document.title = "felipe | seu app de estudo";
   }, []);
 
   return (
