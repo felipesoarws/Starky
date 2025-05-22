@@ -90,10 +90,6 @@ npm run dev
 
 Se você quiser contribuir para o projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request. Toda contribuição é bem-vinda!
 
-## Licença
-
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
 ---
 
 Feito com ❤️ por [Felipe Soares](https://www.linkedin.com/in/felipesoarws/). Visite meu [portfólio](https://felipesoarws.vercel.app/) para conhecer mais projetos.
