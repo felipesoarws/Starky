@@ -7,16 +7,24 @@ Starky é um site que utiliza o método de ensino de repetição espaçada basea
 Confira se você tem o [Node.js](https://nodejs.org/) instalado em sua máquina.
 
 1. Clone este repositório:
-```git clone https://github.com/felipesoarws/Starky.git```
+```
+git clone https://github.com/felipesoarws/Starky.git
+```
 
 2. Navegue para ao diretório do projeto:
-```cd starky```
+```
+cd starky
+```
 
 3. Instale as dependências:
-```npm install```
+```
+npm install
+```
 
 4. Inicie o programa:
-```npm run dev```
+```
+npm run dev
+```
 
 ## Funcionalidades
 
