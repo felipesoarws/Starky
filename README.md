@@ -3,7 +3,7 @@
 Starky é um site que utiliza o método de ensino de repetição espaçada baseada em flashcards, inspirado no Anki, mas com uma abordagem visualmente mais atrativa e intuitiva. O objetivo é facilitar a memorização de conteúdo a longo prazo, ajustando o intervalo de revisão dos cards com base na dificuldade que o usuário teve ao responder.
 
 ## Instalação
-> **Pré requisitos**
+> **Pré requisitos:**
 Confira se você tem o [Node.js](https://nodejs.org/) instalado em sua máquina.
 
 1. Clone este repositório:
